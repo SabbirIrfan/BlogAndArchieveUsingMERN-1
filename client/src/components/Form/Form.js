@@ -10,11 +10,17 @@ const Form = (currentId, setCurrentId) =>{
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const clear = () =>{
+    // const clear = () =>{
 
-    };
+    // };
 
 
+
+
+
+
+
+    
     const handleSubmit = (e) =>{
         e.preventDefault();
 
