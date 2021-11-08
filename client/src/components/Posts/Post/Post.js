@@ -10,6 +10,8 @@ const Post = ({ post, setCurrentId }) => {
 
     const classes = useStyles();
 
+    const myname = "gfhbfjhfewf";
+
     return (
         <Card className={classes.card}>
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title}></CardMedia>
