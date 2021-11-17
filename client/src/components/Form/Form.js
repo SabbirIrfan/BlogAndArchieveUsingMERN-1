@@ -22,6 +22,7 @@ const Form = (currentId, setCurrentId) =>{
         }
 
         dispatch(createPost(postData));
+
     };
 
     return (
