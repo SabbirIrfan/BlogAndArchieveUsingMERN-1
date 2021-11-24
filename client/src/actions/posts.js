@@ -8,7 +8,7 @@ export const getPosts = () => async (dispatch) => {
 
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
-    console.log(error);// for debugging purpose it is better to console.kog(error) instead of console.log(error.message)
+    console.log(error);
   }
 };
 
@@ -18,7 +18,7 @@ export const createPost = (post) => async (dispatch) => {
     const { data } = await api.createPost(post);
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
-     console.log(error);
+     console.log(error.message);
   }
 };
 
@@ -28,7 +28,7 @@ export const updatePost = (id, post) => async (dispatch) => {
 
     dispatch({ type: UPDATE, payload: data });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
@@ -39,8 +39,9 @@ export const likePost = (id) => async (dispatch) => {
     dispatch({ type: UPDATE, payload: data });
 
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
+
 };
 
 export const deletePost = (id) => async (dispatch) => {
@@ -50,6 +51,6 @@ export const deletePost = (id) => async (dispatch) => {
     dispatch({ type: 'DELETE', payload: id });
     console.log("do you rally want to delete the post");
   } catch (error) {
-    console.log(error); 
+    console.log(error.message); 
   }
 };
