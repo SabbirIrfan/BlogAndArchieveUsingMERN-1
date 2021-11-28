@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import postRoutes from './routes/posts.js'
+import userRoutes from './routes/user.js'
+
 
 const app = express();
 dotenv.config();
@@ -16,8 +18,10 @@ app.use(express.json({limit: "300mb", extended: true}));
 app.use(express.urlencoded({limit: "300mb", extended: true}));
 app.use(cors());
 
-app.use('/posts',postRoutes);
-const CONNECTION_URL = 'mongodb+srv://nhfahimshah:12345fahim@cluster0.odpnf.mongodb.net/dataproject?retryWrites=true&w=majority';
+app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
+
+// const CONNECTION_URL = 'mongodb+srv://nhfahimshah:12345fahim@cluster0.odpnf.mongodb.net/dataproject?retryWrites=true&w=majority';
 
 
 const PORT = process.env.PORT || 5000;

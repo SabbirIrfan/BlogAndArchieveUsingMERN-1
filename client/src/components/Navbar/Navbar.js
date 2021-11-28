@@ -14,7 +14,7 @@ const Navbar = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const token = user?.token;
+        // const token = user?.token;
 
         // JWT
 
