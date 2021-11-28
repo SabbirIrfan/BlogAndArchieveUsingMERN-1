@@ -1,4 +1,4 @@
-import {FETCH_ALL,CREATE, UPDATE, DELETE,LIKE,} from '../constants/actionTypes.js';
+import {FETCH_ALL,CREATE, UPDATE, DELETE,} from '../constants/actionTypes.js';
 import * as api from '../api/index';
 
 //Action Creators
@@ -48,7 +48,7 @@ export const deletePost = (id) => async (dispatch) => {
   try {
     await api.deletePost(id);
 
-    dispatch({ type: 'DELETE', payload: id });
+    dispatch({ type: DELETE, payload: id });
     console.log("do you rally want to delete the post");
   } catch (error) {
     console.log(error.message); 
