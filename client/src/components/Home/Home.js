@@ -6,15 +6,14 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../../actions/posts';
 import useStyles from '../../styles';
 
-const Home = () => {
+const Home = ({userstate}) => {
     const [currentId, setCurrentId] = useState(0);
     const dispatch = useDispatch();
     const classes = useStyles();
     useEffect(() => {
         dispatch(getPosts());
     }, [currentId, dispatch]);
-
-
+  // console.log(userstate + "In the Home page.");
     return (
         <Grow in>
         <Container>
@@ -23,7 +22,7 @@ const Home = () => {
               <Posts setCurrentId={setCurrentId} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form currentId={currentId} setCurrentId={setCurrentId} />
+              <Form currentId={currentId} setCurrentId={setCurrentId} userstate={userstate} />
             </Grid>
           </Grid>
         </Container>

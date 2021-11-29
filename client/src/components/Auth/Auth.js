@@ -15,7 +15,7 @@ import {signin, signup} from '../../actions/auth'
 
 const initialState = {firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
-const Auth = () => {
+const Auth = ({setUserId}) => {
     const classes = useStyles();
     const dispatch = useDispatch();                
     const [showPassword, setShowPassword] = useState(false);
@@ -31,10 +31,11 @@ const Auth = () => {
         // console.log("Hello")
         // console.log(formData)
         if (isSignup) {
-            dispatch(signup(formData,navigate))
+            dispatch(signup(formData,navigate, setUserId))
         }
         else {
-            dispatch(signin(formData,navigate))
+            dispatch(signin(formData, navigate, setUserId))
+
         }
     }
 
@@ -54,6 +55,7 @@ const Auth = () => {
 
         try {
             dispatch({ type: AUTH, data: { result, token } });
+            setUserId("GLogIN")
             navigate('/');
 
         } catch (error) {
@@ -84,9 +86,9 @@ const Auth = () => {
                                     </>
                             )}
                             <Input name="email" label="Email" handleChange={handleChange} autoFocus={isSignup ?false: true} type="email" />
-                            <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+                            <Input name="password" label="Password" autocomplete="on" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
                             {isSignup &&
-                                <Input name="confirmPassword" label="Confirm Password" handleChange={handleChange} type="password"/>
+                                <Input name="confirmPassword" autocomplete="on" label="Confirm Password" handleChange={handleChange} type="password"/>
                             }
                         </Grid>
                         <Box pt={2}>
