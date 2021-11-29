@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import {AppBar, Typography} from '@material-ui/core';
 import useStyles from './styles';
 import { useDispatch } from "react-redux";
-import {Link, useLocation} from "react-router-dom"
+import { Link, useLocation } from "react-router-dom";
 import { Avatar, Button, Toolbar } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
-const Navbar = () => {
+import decode from 'jwt-decode';
+
+
+const Navbar = ({setUserId}) => {
     const classes = useStyles();
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     //console.log(user);
@@ -13,19 +16,28 @@ const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' })
+        setUser(null);
+        setUserId(null);
+        navigate('/');
+    }
+
     useEffect(() => {
-        // const token = user?.token;
+        const token = user?.token;
 
         // JWT
+        if (token) {
+            const decodedToken = decode(token);
+            if (decodedToken.exp * 1000 < new Date().getTime()) {
+                logout();
+            }
+        }
 
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])
 
-    const logout = () => {
-        dispatch({ type: 'LOGOUT' })
-        navigate('/');
-        setUser(null);
-    }
 
     return(
         <AppBar className={classes.appBar} position="static" color="inherit">
