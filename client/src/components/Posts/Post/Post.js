@@ -5,6 +5,7 @@ import { ButtonBase } from '@mui/material';
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import BlurOnIcon from '@mui/icons-material/BlurOn';
 import { useDispatch } from 'react-redux';
 import { likePost, deletePost } from '../../../actions/posts';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -45,7 +46,16 @@ const Post = ({ post, setCurrentId }) => {
         </div>
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
           <div className={classes.overlay2}>
-            {/* <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}><MoreHorizIcon fontSize="default" /></Button> */}
+            <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentId(post._id);
+            }}
+            style={{ color: 'white' }}
+            size="small"
+          >
+            <MoreHorizIcon fontSize="default" />
+          </Button>
           </div>
         )}
         <div className={classes.details}>
@@ -58,10 +68,8 @@ const Post = ({ post, setCurrentId }) => {
         <ButtonBase className={classes.cardAction}
         onClick={openPost}
       >
-        <Button size="small" color="secondary" >
-            <MoreHorizIcon fontSize="small" /> &nbsp; OPEN
-          </Button>
-      </ButtonBase>
+          <BlurOnIcon fontSize="default" /> OPEN
+            </ButtonBase>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
           <Likes />
