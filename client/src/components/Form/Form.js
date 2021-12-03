@@ -2,42 +2,63 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
-import useStyles from './styles';
+import { useNavigate } from 'react-router-dom';
+import ChipInput from 'material-ui-chip-input';
+
 import { createPost, updatePost } from '../../actions/posts';
+import useStyles from './styles';
 
 const Form = ({ currentId, setCurrentId , userstate}) => {
-  const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' });
-  const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));// getiing the post to update
+  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
+  const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
+  const history = useNavigate();
 
-  console.log(userstate)
-    //populating the form with post data to update
-  useEffect(() => {
-    if (post) setPostData(post); // setting the new data to which got from the form const[postData,setPostData]
-  }, [post]);
   // clears the post form to it's default state
   const clear = () => {
     setCurrentId(0);
-    setPostData({  title: '', message: '', tags: '', selectedFile: '' });
+    setPostData({ title: '', message: '', tags: [], selectedFile: '' });
   };
- 
+
+  //populating the form with post data to update
+  useEffect(() => {
+    if (!post?.title) clear();
+    if (post) setPostData(post); // setting the new data to which got from the form const[postData,setPostData]
+  }, [post]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
-      clear();  // after submitting(clicking the submit button) the edit/update we need to cleare the form
-
+      dispatch(createPost({ ...postData, name: user?.result?.name }, history));
+      clear();
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
-      clear();  // after submitting(clicking the submit button) the edit/update we need to cleare the form
-
+      clear();
     }
   };
 
-  if (userstate != null) {
+  if (!user?.result?.name && userstate == null) {
+    return (
+      <Paper className={classes.paper} elevation={6}>
+        <Typography variant="h6" align="center">
+          Please Sign In to create your own memories and like other's memories.
+        </Typography>
+      </Paper>
+    );
+  }
+
+  const handleAddChip = (tag) => {
+    setPostData({ ...postData, tags: [...postData.tags, tag] });
+  };
+
+  const handleDeleteChip = (chipToDelete) => {
+    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
+  };
+
+  // if (userstate != null) {
     return (
      
         <Paper className={classes.paper}>
@@ -52,17 +73,15 @@ const Form = ({ currentId, setCurrentId , userstate}) => {
           </form>
         </Paper>
   );
-  } else if(!user?.result?.name || userstate == null) {
-    return (
-      <Paper className={classes.paper}>
-        <Typography variant="h6" align="center">
-          Please Sign In to share your knowledge and resources.
-        </Typography>
-      </Paper>
-    ); 
-  }
-
- 
+  // } else if(!user?.result?.name || userstate == null) {
+  //   return (
+  //     <Paper className={classes.paper}>
+  //       <Typography variant="h6" align="center">
+  //         Please Sign In to share your knowledge and resources.
+  //       </Typography>
+  //     </Paper>
+  //   ); 
+  // }
 };
 
 export default Form;
