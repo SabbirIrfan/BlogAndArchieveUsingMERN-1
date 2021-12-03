@@ -10,8 +10,11 @@ import { useDispatch } from 'react-redux';
 import { likePost, deletePost } from '../../../actions/posts';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import {useNavigate} from 'react-router-dom'
-const Post = ({ post, setCurrentId }) => {
+import { useNavigate } from 'react-router-dom'
+import CardActionArea from '@mui/material/CardActionArea';
+
+
+const Post = ({ post, setCurrentId, imgUrl }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useNavigate();
@@ -35,11 +38,12 @@ const Post = ({ post, setCurrentId }) => {
 
     history(`/posts/${post._id}`);
   };
-
+  
   return (
     <Card className={classes.card} raised elevation={6}>
-      
-        <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
+       <CardActionArea onClick={openPost}>
+        {/* <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} /> */}
+        <CardMedia className={classes.media} image={imgUrl} title={post.title} />
         <div className={classes.overlay}>
           <Typography variant="h6">{post.name}</Typography>
           <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
@@ -63,13 +67,10 @@ const Post = ({ post, setCurrentId }) => {
         </div>
         <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
         <CardContent>
-          <Typography variant="body2" color="textSecondary" noWrap="true" component="p">{post.message}</Typography>
+          <Typography variant="body2" color="textSecondary" noWrap={true} component="p">{post.message}</Typography>
         </CardContent>
-        <ButtonBase className={classes.cardAction}
-        onClick={openPost}
-      >
-          <BlurOnIcon fontSize="default" /> OPEN
-            </ButtonBase>
+         </CardActionArea>
+     
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
           <Likes />

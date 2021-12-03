@@ -16,5 +16,13 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       flexDirection: 'column-reverse',
     },
+    
+  },
+  searchButton: {
+    backgroundColor: '#5d6e7a',
+    color: '#ffffff',
+    '&:hover': {
+      backgroundColor: '#5d6e7a',
+    }
   },
 }));
