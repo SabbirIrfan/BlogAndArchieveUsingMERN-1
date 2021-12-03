@@ -18,6 +18,11 @@ export default makeStyles((theme) => ({
     },
     
   },
+  divBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent : 'center',
+  },
   searchButton: {
     backgroundColor: '#5d6e7a',
     color: '#ffffff',

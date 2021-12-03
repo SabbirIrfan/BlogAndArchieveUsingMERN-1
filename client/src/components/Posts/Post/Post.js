@@ -1,11 +1,9 @@
 import React from 'react';
 import useStyles from './styles';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
-import { ButtonBase } from '@mui/material';
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import BlurOnIcon from '@mui/icons-material/BlurOn';
 import { useDispatch } from 'react-redux';
 import { likePost, deletePost } from '../../../actions/posts';
 import FavoriteIcon from '@mui/icons-material/Favorite';
