@@ -45,6 +45,19 @@ export default makeStyles((theme) => ({
   },
   logout: {
     marginLeft: '20px',
+    backgroundColor: '#9abf7a',
+    color: '#ffffff',
+    '&:hover': {
+      backgroundColor: '#5d6e7a',
+    }
+  },
+  signin : {
+    marginLeft: '20px',
+    backgroundColor: '#ea9b80',
+    color: '#ffffff',
+    '&:hover': {
+      backgroundColor: '#5d6e7a',
+    }
   },
   userName: {
     display: 'flex',
@@ -59,4 +72,8 @@ export default makeStyles((theme) => ({
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },
+  logo: {
+    fontSize: '50px',
+    color: '#ea9b80',
+  }
 }));

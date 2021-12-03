@@ -5,6 +5,12 @@ import PostMessage from '../models/postMessage.js';
 
 const router = express.Router();
 
+function Random() {
+  let temp = Math.floor(Math.random() * 31);
+  return temp
+}
+
+
 export const getPosts = async (req, res) => {
     const { page } = req.query;
     
@@ -50,7 +56,7 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
     const post = req.body;
 
-    const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
+    const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString(), num:Random() })
 
     try {
         await newPostMessage.save();

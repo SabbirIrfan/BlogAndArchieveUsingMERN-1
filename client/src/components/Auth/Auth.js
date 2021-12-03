@@ -74,7 +74,7 @@ const Auth = ({setUserId}) => {
             <Container component="main" maxWidth="xs">
                 <Paper className={classes.paper} elevation={3}>
                     <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon color="primary" />
+                        <LockOutlinedIcon color="#ff675c" />
                     </Avatar>
                     <Typography variant="h5">{isSignup ? 'Sign Up' : 'Sign In'}</Typography>
                     <form className={classes.form} onSubmit={handleSubmit}>
@@ -92,16 +92,15 @@ const Auth = ({setUserId}) => {
                             }
                         </Grid>
                         <Box pt={2}>
-                            <Button type="submit" fullWidth variant="contained" color="secondary" className={classes.submit} >{isSignup ? "Sign Up" : "Sign In"}</Button>
+                            <Button type="submit" fullWidth variant="contained" className={classes.submit} style={{backgroundColor: '#9abf7a',color: '#ffffff',hover: {backgroundColor: '#5d6e7a',}}} >{isSignup ? "Sign Up" : "Sign In"}</Button>
                         </Box>
 
                         <Box pt={2}>
                             <GoogleLogin
                             clientId="802372011188-c3h6alkbm8dh88imcrhjd733su4q7kvr.apps.googleusercontent.com"
                             render={(renderProps) => (
-                                <Button
+                                <Button style={{backgroundColor: '#ff675c',color: '#ffffff',hover: {backgroundColor: '#5d6e7a',}}}
                                     className={classes.googleButton}
-                                    color="primary"
                                     fullWidth
                                     onClick={renderProps.onClick}
                                     disabled={renderProps.disabled}
@@ -117,7 +116,7 @@ const Auth = ({setUserId}) => {
                         
                        <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Button onClick={switchMode}>
+                                <Button onClick={switchMode} style={{color:"#334155"}}>
                                     {isSignup ? "Already have an account ? Sign In" : "Don't have an account ? Sign Up"}
                                 </Button>
                             </Grid>
