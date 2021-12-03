@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/posts" element={<Home userstate={userstate}/>} />
           <Route path="/posts/search" element={<Home userstate={userstate}/>} />
           <Route path="/posts/:id" element = {<PostDetails/>} />
-          <Route path="/auth" element={<Auth setUserId={setUserId}/> }/>
+          <Route path="/auth" element={ (!user ? <Auth setUserId={setUserId}/> : <Navigate to='/posts'/>)}/>
         </Routes>
       </Container>
     </BrowserRouter>
