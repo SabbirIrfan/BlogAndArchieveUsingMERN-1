@@ -8,7 +8,7 @@ function getUrl(num) {
   // let temp = Math.floor(Math.random() * 31);
   let st="https://raw.githubusercontent.com/NaimulHasanFahim/TechnicalWrittingCourse/main/background/back"+num+".png"
   // let st = "./Post/background/back" + temp.toString() + ".png"
-  console.log(st)
+  // console.log(st)
   return st
 }
 

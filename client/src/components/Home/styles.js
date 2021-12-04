@@ -24,6 +24,7 @@ export default makeStyles((theme) => ({
     justifyContent : 'center',
   },
   searchButton: {
+    size: "auto",
     backgroundColor: '#5d6e7a',
     color: '#ffffff',
     '&:hover': {

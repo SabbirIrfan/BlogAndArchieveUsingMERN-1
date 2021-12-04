@@ -28,12 +28,18 @@ const Home = () => {
   const history = useNavigate();
 
   const searchPost = () => {
-    if (search.trim() || tags) {
+    if (search == '') {
+      setSearch("Please enter some keyword")
+    }
+    else {
+      if (search.trim()!='' || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
       history(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
     } else {
       history('/');
     }
+    }
+    
   };
 
   const handleKeyPress = (e) => {
@@ -56,7 +62,7 @@ const Home = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppBar className={classes.appBarSearch} position="static" color="inherit">
               <form className={classes.form} >
-                <TextField required onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search by text" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
+                <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search by text" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
                 <ChipInput fullWidth
                   style={{ margin: '10px 0' }}
                   value={tags}
@@ -66,7 +72,7 @@ const Home = () => {
                   variant="outlined"
                 />
                 <div className={classes.divBtn}>
-                  <Button  onClick={searchPost} className={classes.searchButton} variant="contained" color="primary">Search</Button>
+                  <Button  onClick={searchPost} className={classes.searchButton} fullWidth variant="contained">Search</Button>
                 </div>
                 
               </form>

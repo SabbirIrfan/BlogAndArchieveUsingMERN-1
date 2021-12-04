@@ -58,5 +58,8 @@ export default makeStyles({
     display: 'block',
     textAlign: 'initial',
   },
+  deletebtn: {
+    alignItems: 'bottom'
+  }
 });
 

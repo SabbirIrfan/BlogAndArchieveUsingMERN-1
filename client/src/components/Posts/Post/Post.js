@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useStyles from './styles';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
 import moment from 'moment';
@@ -15,26 +15,43 @@ import CardActionArea from '@mui/material/CardActionArea';
 const Post = ({ post, setCurrentId, imgUrl }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const history = useNavigate();
+  const navigate = useNavigate();
+
+   const [likes, setLikes] = useState(post?.likes);
 
   const user = JSON.parse(localStorage.getItem('profile'));
+
+  const userId = user?.result.googleId || user?.result?._id;
+  const hasLikedPost = post?.likes?.find((like) => like === userId);
+
+  const handleLike = async () => {
+    dispatch(likePost(post._id));
+
+    if (hasLikedPost) {
+      setLikes(post.likes.filter((id) => id !== userId));
+    } else {
+      setLikes([...post.likes, userId]);
+    }
+  };
+
+
   const Likes = () => {
     if (post?.likes?.length > 0) {
-      return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
+      return likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
         ? (
-          <><FavoriteIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}</>
+          <><FavoriteIcon fontSize="small" style={{color: '#415b7c' , margin: '0px 0px' , padding: '0px 0px'}} />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}</>
         ) : (
-          <><FavoriteBorderIcon fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
+          <><FavoriteBorderIcon style={{color: '#415b7c', margin: '0px 0px' , padding: '0px 0px'}} fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}</>
         );
     }
 
-    return <><FavoriteBorderIcon fontSize="small" />&nbsp;Like</>;
+    return <><FavoriteBorderIcon style={{color: '#415b7c', margin: '0px 0px', padding: '0px 0px'}} fontSize="small" />&nbsp;Like</>;
   };
 
   const openPost = (e) => {
-    // dispatch(getPost(post._id, history));
+    // dispatch(getPost(post._id, navigate));
 
-    history(`/posts/${post._id}`);
+    navigate(`/posts/${post._id}`);
   };
   
   return (
@@ -70,12 +87,12 @@ const Post = ({ post, setCurrentId, imgUrl }) => {
          </CardActionArea>
      
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
+        <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
           <Likes />
         </Button>
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
+          <Button size="small" style={{color: '#334155'}} onClick={() => dispatch(deletePost(post._id))}>
+            <DeleteIcon fontSize="small" style={{color: '#334155'}} /> &nbsp; Delete
           </Button>
         )}
       </CardActions>
