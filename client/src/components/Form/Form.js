@@ -32,6 +32,9 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
       clear();
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+      for (let i = 0; i < 1000000; i++){
+        
+      }
       clear();
       history(`/posts/${currentId}`)
     }
