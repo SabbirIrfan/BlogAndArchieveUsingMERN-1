@@ -7,6 +7,7 @@ import { createPost, updatePost } from '../../actions/posts';
 import ChipInput from 'material-ui-chip-input';
 import useStyles from './styles';
 
+
 const Form = ({ currentId, setCurrentId, userstate }) => {
   const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
@@ -14,31 +15,27 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
   const history = useNavigate();
-
   // clears the post form to it's default state
   const clear = () => {
     setCurrentId(0);
     setPostData({ title: '', message: '', tags: [], selectedFile: '' });
   };
-
   //populating the form with post data to update
   useEffect(() => {
     if (!post?.title) clear();
     if (post) setPostData(post); // setting the new data to which got from the form const[postData,setPostData]
   }, [post]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (currentId === 0) {
       dispatch(createPost({ ...postData, name: user?.result?.name }, history));
       clear();
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
       clear();
+      history(`/posts/${currentId}`)
     }
   };
-
   if (!user?.result?.name && userstate == null) {
     return (
       <Paper className={classes.paper} elevation={6}>
@@ -48,11 +45,9 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
       </Paper>
     );
   }
-
   const handleAddChip = (tag) => {
     setPostData({ ...postData, tags: [...postData.tags, tag] });
   };
-
   const handleDeleteChip = (chipToDelete) => {
     setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
   };
