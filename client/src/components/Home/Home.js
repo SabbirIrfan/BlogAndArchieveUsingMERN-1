@@ -55,7 +55,7 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AppBar className={classes.appBarSearch} position="static" color="inherit">
-              <form className={classes.form} onSubmit={searchPost}>
+              <form className={classes.form} >
                 <TextField required onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search by text" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
                 <ChipInput fullWidth
                   style={{ margin: '10px 0' }}
@@ -66,7 +66,7 @@ const Home = () => {
                   variant="outlined"
                 />
                 <div className={classes.divBtn}>
-                  <Button type="submit" className={classes.searchButton} variant="contained" color="primary">Search</Button>
+                  <Button  onClick={searchPost} className={classes.searchButton} variant="contained" color="primary">Search</Button>
                 </div>
                 
               </form>

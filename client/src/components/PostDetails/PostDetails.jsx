@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
+import { Card, CardActions, CardContent,Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -67,16 +67,24 @@ const Post = () => {
           <Typography gutterBottom variant="h5">You might also like:</Typography>
           <Divider />
           <div className={classes.recommendedPosts}>
+
             {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-              <div style={{ margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
+            <Card className={classes.card} style={{backgroundColor: "#fcf2f3"}} elevation={6}>
+
+             <div style={{width: "100%", height: "100%" ,margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
                 <Typography gutterBottom variant="h6">{title}</Typography>
                 <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                {/* <Typography gutterBottom variant="subtitle2">{message}</Typography> */}
+                <CardContent>
+                  <Typography variant="subtitle2" color="textSecondary" noWrap={true}  >{message}</Typography>
+                </CardContent>
                 <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
                 <img src={selectedFile} width="200px" />
               </div>
+            </Card>
             ))}
           </div>
+          
+
         </div>
       )}
     </Paper>
