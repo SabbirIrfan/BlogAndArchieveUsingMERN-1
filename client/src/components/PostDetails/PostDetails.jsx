@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardActions, CardContent, Paper, Typography, CircularProgress, Divider, Button, Menu, MenuItem } from '@material-ui/core/';
+import { Card, CardContent, Paper, Typography, CircularProgress, Divider, Button, Menu, MenuItem } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
 import CommentSection from './CommentSection';
-import { likePost, deletePost } from '../../actions/posts';
+import { deletePost } from '../../actions/posts';
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -47,6 +47,7 @@ const Post = () => {
     if (post) {
       dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
     }
+    
   }, [post]);
 
   if (!post) return null;
@@ -123,7 +124,7 @@ const Post = () => {
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
           {/* <Divider style={{ margin: '20px 0' }} /> */}
           {/* <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography> */}
-          <Divider style={{ margin: '20px 0' }} />
+          <Divider style={{ margin: '10px 0' }} />
           {/* <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography> */}
           <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
