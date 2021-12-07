@@ -1,6 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+  fab_button:{
+    borderRadius: 100,
+    marginBottom: '1rem',
+    
+    slot: 'fixed',
+    padding: '16px',
+    color : 'black',
+    background: '#bcc9b9',
+  },
   appBarSearch: {
     borderRadius: 4,
     marginBottom: '1rem',

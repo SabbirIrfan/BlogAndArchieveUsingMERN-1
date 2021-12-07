@@ -1,15 +1,27 @@
 
+
 import React, { useState } from 'react';
-import { Container, Grow, Grid, AppBar, TextField, Button, Paper } from '@material-ui/core';
+import {
+  Container, Grow, Grid, AppBar, TextField, Button, Paper, Fab, Page,
+  FabBackdrop,
+  Icon,
+  FabButtons,
+  FabButton,
+  Block,
+} from '@material-ui/core';
+
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
-
+import AddIcon from '@mui/icons-material/Add';
 import { getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
+import Post from '../Posts/Post/Post';
 import Form from '../Form/Form';
 import Pagination from '../Pagination';
 import useStyles from './styles';
+import get_x from '../Posts/Post/Post';
+import Navbar from '../Navbar/Navbar';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -33,13 +45,13 @@ const Home = () => {
     }
     else {
       if (search.trim() !== '' || tags) {
-      dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-      history(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
-    } else {
-      history('/');
+        dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+        history(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+      } else {
+        history('/');
+      }
     }
-    }
-    
+
   };
 
   const handleKeyPress = (e) => {
@@ -48,19 +60,34 @@ const Home = () => {
     }
   };
 
+  const create_post = () => {
+
+    // dispatch({ type: actionType.CREATE });
+
+    history('/addpost');
+
+
+  };
   const handleAddChip = (tag) => setTags([...tags, tag]);
 
   const handleDeleteChip = (chipToDelete) => setTags(tags.filter((tag) => tag !== chipToDelete));
 
   return (
-    <Grow in>
+    <page>
+
       <Container maxWidth="xl">
         <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
           <Grid item xs={12} sm={6} md={9}>
             <Posts setCurrentId={setCurrentId} />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <AppBar className={classes.appBarSearch} position="static" color="inherit">
+            <AppBar className={classes.appBarSearch} position="sticky" color="inherit">
+              <Fab className={classes.fab_button} variant="extended" onClick={create_post}>
+
+                <AddIcon />
+
+                Create
+              </Fab>
               <form className={classes.form} >
                 <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search by text" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
                 <ChipInput fullWidth
@@ -72,22 +99,32 @@ const Home = () => {
                   variant="outlined"
                 />
                 <div className={classes.divBtn}>
-                  <Button  onClick={searchPost} className={classes.searchButton} fullWidth variant="contained">Search</Button>
+                  <Button onClick={searchPost} className={classes.searchButton} fullWidth variant="contained">Search</Button>
                 </div>
-                
+
               </form>
-              
+
+
+              {/* <Form currentId={currentId} setCurrentId={setCurrentId} /> */}
+              {(!searchQuery && !tags.length) && (
+                <Paper className={classes.pagination} elevation={6}>
+                  <Pagination page={page} />
+                </Paper>
+              )}
             </AppBar>
-            <Form currentId={currentId} setCurrentId={setCurrentId} />
-            {(!searchQuery && !tags.length) && (
-              <Paper className={classes.pagination} elevation={6}>
-                <Pagination page={page} />
-              </Paper>
-            )}
+
+            {/* <div>
+              <Fab className={classes.fab_button} variant="extended" onClick={create_post}>
+
+                <AddIcon />
+
+                Create
+              </Fab>
+            </div> */}
           </Grid>
         </Grid>
       </Container>
-    </Grow>
+    </page>
   );
 };
 
