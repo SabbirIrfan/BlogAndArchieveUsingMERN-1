@@ -36,7 +36,7 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="sticky" color="inherit">
+    <AppBar className={classes.appBar} position="static" color="inherit">
       <Link to="/" style={{textDecoration: 'none'}} className={classes.brandContainer}>
         {/* <img component={Link} to="/" src={memoriesText} alt="icon" height="45px" /> */}
         <Typography className={classes.logo}>BLEND</Typography>
