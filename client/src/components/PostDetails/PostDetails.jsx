@@ -8,6 +8,10 @@ import { getPost, getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles';
 import CommentSection from './CommentSection';
 import { deletePost } from '../../actions/posts';
+import CustomizedDialogs from './Dailog';
+import EditForm from './EditForm';
+
+
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -90,7 +94,7 @@ const Post = () => {
                 onClose={handleClose, handleCloseEdit, handleCloseDelete, handleCloseHome}
               >
 
-                <MenuItem onClick={handleCloseEdit}>Edit</MenuItem>
+                <MenuItem onClick={handleCloseEdit}> <CustomizedDialogs currentId={post._id}> </CustomizedDialogs></MenuItem>
                 <MenuItem onClick={handleCloseDelete}>Delete</MenuItem>
                 <MenuItem onClick={handleCloseHome}>Back to Home</MenuItem>
                 <MenuItem onClick={handleClose}>Close</MenuItem>
@@ -139,32 +143,34 @@ const Post = () => {
         {/* <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} /> */}
         {/* </div> */}
       </div>
-      {!!recommendedPosts.length && (
-        <div className={classes.section}>
-          <Typography gutterBottom variant="h5">You might also like:</Typography>
-          <Divider />
-          <div className={classes.recommendedPosts}>
+      {
+        !!recommendedPosts.length && (
+          <div className={classes.section}>
+            <Typography gutterBottom variant="h5">You might also like:</Typography>
+            <Divider />
+            <div className={classes.recommendedPosts}>
 
-            {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-              <Card className={classes.card} style={{ backgroundColor: "#ffffff", margin: "5px 5px" }} elevation={6}>
+              {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
+                <Card className={classes.card} style={{ backgroundColor: "#ffffff", margin: "5px 5px" }} elevation={6}>
 
-                <div style={{ width: "100%", height: "100%", margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
-                  <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{title}</Typography>
-                  <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                  <CardContent>
-                    <Typography variant="subtitle2" color="textSecondary" noWrap={true}  >{message}</Typography>
-                  </CardContent>
-                  <Typography gutterBottom style={{ fontWeight: 'bold' }} variant="subtitle1">Likes: {likes.length}</Typography>
-                  {/* <img src={selectedFile} width="200px" /> */}
-                </div>
-              </Card>
-            ))}
+                  <div style={{ width: "100%", height: "100%", margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
+                    <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{title}</Typography>
+                    <Typography gutterBottom variant="subtitle2">{name}</Typography>
+                    <CardContent>
+                      <Typography variant="subtitle2" color="textSecondary" noWrap={true}  >{message}</Typography>
+                    </CardContent>
+                    <Typography gutterBottom style={{ fontWeight: 'bold' }} variant="subtitle1">Likes: {likes.length}</Typography>
+                    {/* <img src={selectedFile} width="200px" /> */}
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+
           </div>
-
-
-        </div>
-      )}
-    </Paper>
+        )
+      }
+    </Paper >
   );
 };
 

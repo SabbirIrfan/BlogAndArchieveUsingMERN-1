@@ -102,3 +102,43 @@ function EditForm(props) {
 }
 
 export default withStyles(styles)(EditForm);
+// return (
+//     <div>
+//        <MenuItem onClick={handleClickOpen}>Edit</MenuItem>
+//       <BootstrapDialog disableEnforceFocus
+//         onClose={handleClose}
+//         aria-labelledby="customized-dialog-title"
+//         open={open}
+//       >
+//         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+//           Edit post
+//         </BootstrapDialogTitle>
+//         <DialogContent disableEnforceFocus dividers>
+//           <Grid container>
+//                   <Grid item xs={8}>
+//                       <Grid container direction="row" className={classes.mainContent} spacing={1} >
+//                           <Grid item xs={12}>
+//                               <TextField fullWidth margin="dense" variant="outlined" label="Title" id="title" value={post.title} onChange={(e) => setPostData({ ...post, title: e.target.value })} />
+//                           </Grid>
+//                           <Grid item xs={12}>
+//                               <TextField fullWidth multiline rows="6" margin="dense" variant="outlined" label="Message" id="message" value={post.message} onChange={(e) => setPostData({ ...post, message: e.target.value })} />
+//                           </Grid>
+//                           <Grid item xs={12}>
+//                               <TextField fullWidth margin="dense" variant="outlined" label="Tags (Comma separated)" id="tags" value={post.tags} onChange={(e) => setPostData({ ...post, tags: e.target.value })} />
+//                           </Grid>
+//                           <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => console.log('hi')} /></div>
+           
+//                       </Grid>
+//                   </Grid>
+//               </Grid>
+
+
+//         </DialogContent>
+//         <DialogActions>
+//           <Button autoFocus onClick={handleClose}>
+//             Save changes
+//           </Button>
+//         </DialogActions>
+//       </BootstrapDialog>
+//     </div>
+//   );
