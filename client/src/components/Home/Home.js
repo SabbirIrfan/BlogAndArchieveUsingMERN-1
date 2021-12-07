@@ -28,11 +28,11 @@ const Home = () => {
   const history = useNavigate();
 
   const searchPost = () => {
-    if (search == '') {
-      setSearch("Please enter some keyword")
+    if ((search === '' || search === 'Add keyword or tags') && tags.length === 0) {
+      setSearch("Add keyword or tags")
     }
     else {
-      if (search.trim()!='' || tags) {
+      if (search.trim() !== '' || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
       history(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
     } else {
