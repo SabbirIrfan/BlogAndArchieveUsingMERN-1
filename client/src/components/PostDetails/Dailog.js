@@ -95,10 +95,33 @@ const styles = theme => ({
 export default function CustomizedDialogs({currentId}) {
   const [open, setOpen] = React.useState(false);
   const classes = styles;
+
+  ///FORM WORK
+
+  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
+  const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
+  const dispatch = useDispatch();
+  const classes1 = useStyles();
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const history = useNavigate();
+  // clears the post form to it's default state
+  //populating the form with post data to update
+  useEffect(() => {
+    if (!post?.title) clear();
+    console.log(post)
+    if (post) setPostData(post); // setting the new data to which got from the form const[postData,setPostData]
+  }, [post]);
+  
+
   
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const clear = () => {
+    setPostData({ title: '', message: '', tags: [], selectedFile: '' });
+  };
+  
   const handleClose = () => {
     dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
     for (let i = 0; i < 1000000; i++){
@@ -110,48 +133,37 @@ export default function CustomizedDialogs({currentId}) {
     setOpen(false);
   };
 
-
-  ///FORM WORK
-
-  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
-  const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
-  const dispatch = useDispatch();
-  const classes1 = useStyles();
-  const user = JSON.parse(localStorage.getItem('profile'));
-  const history = useNavigate();
-  // clears the post form to it's default state
-  const clear = () => {
-    // setCurrentId(0);
-    setPostData({ title: '', message: '', tags: [], selectedFile: '' });
+   const handleAddChip = (tag) => {
+    setPostData({ ...postData, tags: [...postData.tags, tag] });
   };
-  //populating the form with post data to update
-  useEffect(() => {
-    if (!post?.title) clear();
-    console.log(post)
-    if (post) setPostData(post); // setting the new data to which got from the form const[postData,setPostData]
-  }, [post]);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
-    for (let i = 0; i < 1000000; i++){
-        
-    }
-    clear();
-    history(`/posts/${currentId}`)
-  }
+  const handleDeleteChip = (chipToDelete) => {
+    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
+  };
 
 
   
   return (
     <div>
-      <MenuItem onClick={handleClickOpen}>Edit</MenuItem>
+      <div onClick={handleClickOpen}>Edit</div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Edit Post</DialogTitle>
+        <DialogTitle><Typography variant="h4">Edit Post</Typography></DialogTitle>
         <DialogContent>
-        <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
-        <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
-         <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
-       
+        <TextField style={{margin: '10px 10px'}} name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
+        <TextField style={{margin: '10px 10px'}} name="message" variant="outlined" label="Message" fullWidth multiline rows={6} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
+         <div >
+          <ChipInput
+            name="tags"
+            variant="outlined"
+            label="Tags"
+            fullWidth
+            value={postData.tags}
+            onAdd={(chip) => handleAddChip(chip)}
+            onDelete={(chip) => handleDeleteChip(chip)}
+          />
+        </div>
+        
+          <div style={{ margin: '10px 10px' }} className={classes1.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
+          <Divider style={{ margin: '20px 0' }} /> 
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
