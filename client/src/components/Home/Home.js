@@ -2,12 +2,7 @@
 
 import React, { useState } from 'react';
 import {
-  Container, Grow, Grid, AppBar, TextField, Button, Paper, Fab, Page,
-  FabBackdrop,
-  Icon,
-  FabButtons,
-  FabButton,
-  Block,
+  Container, Grid, AppBar, TextField, Button, Paper, Fab,
 } from '@material-ui/core';
 
 import { useDispatch } from 'react-redux';
@@ -16,12 +11,8 @@ import ChipInput from 'material-ui-chip-input';
 import AddIcon from '@mui/icons-material/Add';
 import { getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
-import Post from '../Posts/Post/Post';
-import Form from '../Form/Form';
 import Pagination from '../Pagination';
 import useStyles from './styles';
-import get_x from '../Posts/Post/Post';
-import Navbar from '../Navbar/Navbar';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -81,7 +72,7 @@ const Home = () => {
             <Posts setCurrentId={setCurrentId} />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <AppBar className={classes.appBarSearch} position="sticky" color="inherit">
+            <AppBar className={classes.appBarSearch} color="inherit">
               <Fab className={classes.fab_button} variant="extended" onClick={create_post}>
 
                 <AddIcon />

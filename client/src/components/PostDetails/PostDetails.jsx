@@ -9,7 +9,6 @@ import useStyles from './styles';
 import CommentSection from './CommentSection';
 import { deletePost } from '../../actions/posts';
 import CustomizedDialogs from './Dailog';
-import EditForm from './EditForm';
 
 
 const Post = () => {
@@ -91,7 +90,6 @@ const Post = () => {
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
-                onClose={handleClose, handleCloseEdit, handleCloseDelete, handleCloseHome}
               >
 
                 <MenuItem onClick={handleCloseEdit}> <CustomizedDialogs currentId={post._id}> </CustomizedDialogs></MenuItem>

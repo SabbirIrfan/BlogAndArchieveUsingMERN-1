@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar';
 import Auth from './components/Auth/Auth'
 import PostDetails from './components/PostDetails/PostDetails';
 import Create_post from './components/Form/Create_post';
+import MainProfile from './components/Profile/MainProfile';
 const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const [userstate, setuserstate] = useState(user)
@@ -23,7 +24,7 @@ const App = () => {
         <Routes>
 
           <Route path="/" element={<Navigate to='/posts'/>} />
-          
+          <Route path="/editprofile" element={<MainProfile/>} />
           <Route path="/posts" element={<Home userstate={userstate}/>} />
           <Route path="/posts/search" element={<Home userstate={userstate}/>} />
           <Route path="/posts/:id" element={<PostDetails />} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -8,31 +8,26 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-import DialogContentText from '@mui/material/DialogContentText';
-import { withStyles, MenuItem } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-import Icon from "@material-ui/core/Icon";
-import { teal, grey } from "@material-ui/core/colors";
 
 
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { TextField, Button, Typography} from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 import { useNavigate } from 'react-router-dom';
-import { createPost, updatePost } from '../../actions/posts';
+import { updatePost } from '../../actions/posts';
 import ChipInput from 'material-ui-chip-input';
 import useStyles from './formStyle';
 
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}));
+// const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+//   '& .MuiDialogContent-root': {
+//     padding: theme.spacing(2),
+//   },
+//   '& .MuiDialogActions-root': {
+//     padding: theme.spacing(1),
+//   },
+// }));
 
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
@@ -64,37 +59,37 @@ BootstrapDialogTitle.propTypes = {
 };
 
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  primaryColor: {
-    color: teal[500]
-  },
-  secondaryColor: {
-    color: grey[700]
-  },
+// const styles = theme => ({
+//   root: {
+//     flexGrow: 1
+//   },
+//   primaryColor: {
+//     color: teal[500]
+//   },
+//   secondaryColor: {
+//     color: grey[700]
+//   },
 
-  padding: {
-    padding: 0
-  },
-  mainHeader: {
-    backgroundColor: grey[100],
-    padding: 20,
-    alignItems: "center"
-  },
-  mainContent: {
-    padding: 40
-  },
-  secondaryContainer: {
-    padding: "20px 25px",
-    backgroundColor: grey[200]
-  }
-});
+//   padding: {
+//     padding: 0
+//   },
+//   mainHeader: {
+//     backgroundColor: grey[100],
+//     padding: 20,
+//     alignItems: "center"
+//   },
+//   mainContent: {
+//     padding: 40
+//   },
+//   secondaryContainer: {
+//     padding: "20px 25px",
+//     backgroundColor: grey[200]
+//   }
+// });
 
 export default function CustomizedDialogs({currentId}) {
   const [open, setOpen] = React.useState(false);
-  const classes = styles;
+  // const classes = styles;
 
   ///FORM WORK
 

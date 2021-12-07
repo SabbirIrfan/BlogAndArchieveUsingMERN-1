@@ -12,7 +12,7 @@ const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
   const location = useLocation();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const classes = useStyles();
 
   const logout = () => {
@@ -36,7 +36,7 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
+    <AppBar className={classes.appBar} color="inherit">
       <Link to="/" style={{textDecoration: 'none'}} className={classes.brandContainer}>
         {/* <img component={Link} to="/" src={memoriesText} alt="icon" height="45px" /> */}
         <Typography className={classes.logo}>BLEND</Typography>
@@ -46,7 +46,9 @@ const Navbar = () => {
         {user?.result ? (
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-            <Typography className={classes.userName} variant="h5">{user?.result.name}</Typography>
+            <Link to="/editprofile" style={{textDecoration: 'none', color: "black"}} className={classes.brandContainer}>
+              <Typography className={classes.userName} variant="h5">{user?.result.name}</Typography>
+            </Link>
             <Button variant="contained" className={classes.logout} onClick={logout}>Logout</Button>
           </div>
         ) : (

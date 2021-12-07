@@ -15,6 +15,8 @@ export default makeStyles((theme) => ({
     marginBottom: '1rem',
     display: 'flex',
     padding: '16px',
+    position: "sticky",
+    top: '7rem',
   },
   pagination: {
     borderRadius: 4,

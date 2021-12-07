@@ -10,6 +10,8 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 50px',
+    position: "sticky",
+    top: 0,
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     },
