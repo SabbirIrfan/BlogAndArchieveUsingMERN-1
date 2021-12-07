@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import useStyles from './styles';
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography, Avatar, Link } from '@material-ui/core';
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -63,20 +63,19 @@ const Post = ({ post, setCurrentId, imgUrl }) => {
           <Typography variant="h6">{post.name}</Typography>
           <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
         </div>
-        {/* {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <div className={classes.overlay2}>
-            <Button
+        <div className={classes.overlay2}>
+            <Button elevation={6}
             onClick={(e) => {
-              e.stopPropagation();
-              setCurrentId(post._id);
+              navigate('/editprofile')
+              // e.stopPropagation();
+              // setCurrentId(post._id);
             }}
             style={{ color: 'white' }}
             size="small"
           >
-            <MoreHorizIcon fontSize="default" />
+            <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
           </Button>
           </div>
-        )} */}
         <div className={classes.details}>
           <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
         </div>
