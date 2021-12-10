@@ -6,7 +6,7 @@ import * as api from '../api/index';
 export const signup = (formData, navigate,setUserId) => async (dispatch) => {
     try {
         const { data } = await api.signUp(formData);
-        // console.log(data) 
+        console.log(data) 
         dispatch({ type: AUTH, data })
         setUserId("SignUp")
         navigate('/');
@@ -19,7 +19,7 @@ export const signup = (formData, navigate,setUserId) => async (dispatch) => {
 export const signin = (formData, navigate, setUserId) => async (dispatch) => {
     try {
         const { data } = await api.signIn(formData);
-        // console.log(data)
+        console.log(data)
         dispatch({ type: AUTH, data })
         setUserId("SignIn")
         navigate('/');

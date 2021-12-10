@@ -13,6 +13,7 @@ import { getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Pagination from '../Pagination';
 import useStyles from './styles';
+import { Grow } from '@mui/material';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -64,7 +65,7 @@ const Home = () => {
   const handleDeleteChip = (chipToDelete) => setTags(tags.filter((tag) => tag !== chipToDelete));
 
   return (
-    <page>
+    <Grow in>
 
       <Container maxWidth="xl">
         <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
@@ -115,7 +116,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </Container>
-    </page>
+    </Grow>
   );
 };
 

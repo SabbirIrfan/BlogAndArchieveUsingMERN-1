@@ -14,6 +14,8 @@ const postSchema = mongoose.Schema({
         type: Date,
         default: new Date(),
     },
+    creatorImgUrl: { type: String },
+    creatorEmail: {type : String},
 })
 
 var PostMessage = mongoose.model('PostMessage', postSchema);

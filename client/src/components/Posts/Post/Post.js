@@ -17,8 +17,10 @@ const Post = ({ post, setCurrentId, imgUrl }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-   const [likes, setLikes] = useState(post?.likes);
-
+  const [likes, setLikes] = useState(post?.likes);
+  // console.log("Creator name : "+post.name);
+  // console.log("Creator id : " + post._id);
+  // console.log("Creator imageUrl : "+ post.creatorImgUrl);
   const user = JSON.parse(localStorage.getItem('profile'));
 
   const userId = user?.result.googleId || user?.result?._id;
@@ -56,7 +58,6 @@ const Post = ({ post, setCurrentId, imgUrl }) => {
   
   return (
     <Card className={classes.card} raised elevation={6}>
-       <CardActionArea onClick={openPost}>
         {/* <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} /> */}
         <CardMedia className={classes.media} image={imgUrl} title={post.title} />
         <div className={classes.overlay}>
@@ -65,17 +66,20 @@ const Post = ({ post, setCurrentId, imgUrl }) => {
         </div>
         <div className={classes.overlay2}>
             <Button elevation={6}
-            onClick={(e) => {
-              navigate('/editprofile')
+          onClick={(e) => {
+              navigate(`/profile/${post.creatorEmail}`)
               // e.stopPropagation();
               // setCurrentId(post._id);
             }}
             style={{ color: 'white' }}
             size="small"
           >
-            <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+            <Avatar className={classes.purple} alt={post.name} src={post.creatorImgUrl}>{post.name.charAt(0)}</Avatar>
           </Button>
+        
           </div>
+      <CardActionArea onClick={openPost}>
+       
         <div className={classes.details}>
           <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
         </div>

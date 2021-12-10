@@ -122,7 +122,7 @@ const Post = () => {
 
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
-          <Typography variant="h6">Created by: {post.name}</Typography>
+          <Typography variant="h6">Created by: {post._id}</Typography>
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
 
           {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) ? (

@@ -46,7 +46,7 @@ const Navbar = () => {
         {user?.result ? (
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-            <Link to="/editprofile" style={{textDecoration: 'none', color: "black"}} className={classes.brandContainer}>
+            <Link to="/profile/mohammadfahimshah@gmail.com" style={{textDecoration: 'none', color: "black"}} className={classes.brandContainer}>
               <Typography className={classes.userName} variant="h5">{user?.result.name}</Typography>
             </Link>
             <Button variant="contained" className={classes.logout} onClick={logout}>Logout</Button>

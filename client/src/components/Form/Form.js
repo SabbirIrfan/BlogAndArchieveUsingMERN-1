@@ -9,17 +9,22 @@ import useStyles from './styles';
 
 
 const Form = ({ currentId, setCurrentId, userstate }) => {
-  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
+  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '', creatorImgUrl: '', creatorEmail: '' });
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
+  // console.log(user)
+  const creatorImgUrl = (user.result.imageUrl ? user.result.imageUrl : user.result.profileImg)
+  const creatorEmail = user.result.email;
+  // console.log(creatorImgUrl)
   const history = useNavigate();
   // clears the post form to it's default state
   const clear = () => {
     setCurrentId(0);
     setPostData({ title: '', message: '', tags: [], selectedFile: '' });
   };
+
   //populating the form with post data to update
   useEffect(() => {
     if (!post?.title) clear();
@@ -28,10 +33,10 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (currentId === 0) {
-      dispatch(createPost({ ...postData, name: user?.result?.name }, history));
+      dispatch(createPost({ ...postData, name: user?.result?.name, creatorImgUrl:creatorImgUrl, creatorEmail: creatorEmail }, history));
       clear();
     } else {
-      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name, creatorImgUrl:creatorImgUrl }));
       for (let i = 0; i < 1000000; i++){
         
       }
@@ -63,7 +68,7 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
         <Typography variant="h6">{currentId ? `Updating "${post.title}"` : 'Share Your Thought and Experience'}</Typography>
         <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
-        <div fullWidth>
+        <div>
           <ChipInput
           
             name="tags"

@@ -102,8 +102,6 @@ export default function CustomizedDialogs({currentId}) {
   // clears the post form to it's default state
   //populating the form with post data to update
   useEffect(() => {
-    if (!post?.title) clear();
-    console.log(post)
     if (post) setPostData(post); // setting the new data to which got from the form const[postData,setPostData]
   }, [post]);
   

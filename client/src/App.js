@@ -14,7 +14,7 @@ const App = () => {
 
   const setUserId = (val) => {
     setuserstate(val);
-    console.log(userstate);
+    // console.log(userstate);
   }
 
   return (
@@ -22,9 +22,9 @@ const App = () => {
       <Container maxWidth="lg">
         <Navbar setUserId={setUserId} />
         <Routes>
-
+          <Route path="/profile/:id" element={<MainProfile/>} />
           <Route path="/" element={<Navigate to='/posts'/>} />
-          <Route path="/editprofile" element={<MainProfile/>} />
+          {/* <Route path="/editprofile" element={<MainProfile/>} /> */}
           <Route path="/posts" element={<Home userstate={userstate}/>} />
           <Route path="/posts/search" element={<Home userstate={userstate}/>} />
           <Route path="/posts/:id" element={<PostDetails />} />
