@@ -1,4 +1,4 @@
-import { START_LOADING,GET_USER_BY_ID } from '../constants/actionTypes';
+import { GET_USER_BY_ID } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 export const getUserById = (id,setUserProfileData) => async (dispatch) => {
@@ -10,8 +10,8 @@ export const getUserById = (id,setUserProfileData) => async (dispatch) => {
     const { data } = temp;
     // console.log(data)
     dispatch({ type: GET_USER_BY_ID, payload: { userData: data } });
-    console.log("hi in the action")
-    console.log(data)
+    // console.log("hi in the action")
+    // console.log(data)
     setUserProfileData(data)
   } catch (error) {
     console.log(error);

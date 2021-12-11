@@ -1,4 +1,4 @@
-import { START_LOADING,COMMENT,  END_LOADING, FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
+import { START_LOADING,COMMENT,  END_LOADING, FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE,FETCH_SINGLE_USER_ALL } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 export const getPost = (id) => async (dispatch) => {
@@ -91,6 +91,19 @@ export const deletePost = (id) => async (dispatch) => {
     await await api.deletePost(id);
 
     dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const getSingleUserPosts = ( id, setAllPosts) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data: { data } } = await api.fetchSingleUserPosts(id);
+    setAllPosts(data)
+    dispatch({ type: FETCH_SINGLE_USER_ALL, payload: { data} });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }

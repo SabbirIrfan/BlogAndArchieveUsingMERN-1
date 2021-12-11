@@ -92,6 +92,25 @@ export default makeStyles((theme) => ({
   },
   deletebtn: {
     alignItems: 'bottom'
-  }
+  },
+  allposts: {
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+  },
+   section: {
+    borderRadius: '20px',
+    margin: '10px',
+    flex: 1,
+  },
+    cardpost: {
+    display: 'flex',
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      flexWrap: 'wrap',
+      flexDirection: 'column',
+    },
+  },
 }));
 

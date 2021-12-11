@@ -41,3 +41,21 @@ export const signup = async (req, res) => {
          res.status(500).json({message: "Something went wrong."})
     }
 }
+
+export const updateUserById = async (req, res) => {
+    const { id } = req.params;
+    const updatedUserData = req.body;
+    // const { temp } = updatedUserData;
+    // console.log(temp)
+    try {
+        
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with this id: ${id}`);
+
+    await User.findByIdAndUpdate(id, updatedUserData, { new: true });
+
+    res.json(updatedPost);
+    } catch (error) {
+        res.status(404).json({message: "Something is wrong"})
+    }
+
+}

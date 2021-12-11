@@ -1,84 +1,141 @@
 import React, { useState, useEffect } from 'react';
-import { Card,CardActionArea,CardContent ,CardMedia, Typography, Toolbar, Avatar, Button, Paper} from '@material-ui/core';
+import { Card,CardContent, Typography, Avatar, Button, Divider,Paper, Menu, MenuItem } from '@material-ui/core';
 // import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import Stack from '@mui/material/Stack';
+import { useDispatch} from 'react-redux';
 import useStyles from './styles';
-import { styled } from '@mui/material/styles';
-// import { getUserById } from '../../actions/profile';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import { getUserById } from '../../actions/profile';
-
+import { getSingleUserPosts } from '../../actions/posts';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import EditFormDialogs from './FormDailog';
 
-const Input = styled('input')({
-  display: 'none',
-});
 
+const initalUserData = {
+        _id: '',
+        name: '',
+        email: '',
+        password: '',
+        profileImg: '',
+        googleId: '',
+        imageUrl: '',
+        imageData: '',
+        linkedIn: '',
+        github: '',
+        social: '',
+        institude: ''
+    }
 const MainProfile = ( ) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    const [userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState(initalUserData);
+    const [allposts, setAllPosts] = useState([])
+    
+    const history = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
-    let linked = "#";
-    let github = "#";
-    let social = "#";
-    let institude = "temp";
-    // const location = useLocation();
-    // const navigate = useNavigate();
-    // getUserById(id);
     const classes = useStyles();
-
+    // console.log(userData)
     const setUserProfileData = (data) => {
-        // console.log("Hi in the function")
-        // console.log(data)
-        setUserData(data);
-        
-        linked = userData.linkedIn;
-        github = userData.github;
-        social = userData.social;
-        institude = userData.institude;
+        setUserData(data[0]);
     }
+
     useEffect(() => {
         dispatch(getUserById(id, setUserProfileData));
-        
-        // console.log(userData)
+        dispatch(getSingleUserPosts(id, setAllPosts))
     }, [id]);
-    console.log(userData)
-    // console.log(userData)
+
+    /// UserPost
+    // console.log(allposts)
+    // const loggeduser = JSON.parse(localStorage.getItem('profile'));
+    const openPost = (_id) => history(`/posts/${_id}`);
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleClick = event => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleCloseEdit = () => {
+        setAnchorEl(null);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    }
+
+    const handleCloseHome = () => {
+        setAnchorEl(null);
+        history('/')
+    };
+
+
+
     return (
         <div>
             <Card className={classes.card} raised elevation={6}>                
                 <div className={classes.centerI}>
-                    <Avatar className={classes.sizeAvatar} alt="User Image" src={user?.result?.imageUrl}>
+                    <Avatar className={classes.sizeAvatar} alt="User Image" src={userData.imageUrl}>
                     </Avatar>
-                    <Stack elevation={6} direction="row" alignItems="center" spacing={2}>
-                            <label htmlFor="icon-button-file">
-                                <Input accept="image/*" id="icon-button-file" type="file" />
-                                <IconButton color="primary" aria-label="upload picture" component="span">
-                                    <PhotoCamera />
-                                </IconButton>
-                            </label>
-                        </Stack>
-                    <div className={classes.overlay}>
-                        <Typography variant="h6">{user.name}</Typography>
-                    </div>
-                    
                 </div>
                 <div className={classes.details}>
-                    <Typography style={{padding: '0px 2px'}} variant="h5">{user?.result?.name}</Typography>
+                    <Typography style={{padding: '0px 2px'}} variant="h5">{userData.name}</Typography>
                     <div style={{ display: 'inline-block' }}>
-                        <a href={linked}> <LinkedInIcon></LinkedInIcon></a>
-                        <a href={github}> <GitHubIcon></GitHubIcon></a>
-                        <a href={social}> <FacebookIcon></FacebookIcon></a>
+                        <a href={userData.linkedIn}> <LinkedInIcon></LinkedInIcon></a>
+                        <a href={userData.github}> <GitHubIcon></GitHubIcon></a>
+                        <a href={userData.social}> <FacebookIcon></FacebookIcon></a>
                     </div>
+                    {(user?.result?.email === id) ? (
+                    <div >
+                        <Button onClick={handleClick}
+                        style={{ color: '#334155' }}
+                        size="small">
+                            <MoreVertIcon fontSize="medium" />
+                            </Button>
+                            <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)}>
+                                <MenuItem onClick={handleCloseEdit}> <EditFormDialogs EditData={userData}> </EditFormDialogs></MenuItem>
+                                <MenuItem onClick={handleCloseHome}>Back to Home</MenuItem>
+                                <MenuItem onClick={handleClose}>Close</MenuItem>
+                            </Menu>
+                        </div>
+                    ) : (
+                        <div >
+                            <Button onClick={handleClick}
+                                style={{ color: '#334155' }}
+                                size="small">
+                                <MoreVertIcon fontSize="medium" />
+                            </Button>
+                            <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)}>
+                                <MenuItem onClick={handleCloseHome}>Back to Home</MenuItem>
+                                <MenuItem onClick={handleClose}>Close</MenuItem>
+                            </Menu>
+                        </div>
+                    )}
+
                 </div>
-                <Typography className={classes.title} gutterBottom variant="h5" component="h2">{institude}</Typography>
+                <Typography className={classes.title} gutterBottom variant="h5" component="h2">{userData.institude}</Typography>
             </Card>
+            <Paper style={{borderRadius: '15px' }} elevation={8}>
+                {!!allposts.length && (
+                    <div className={classes.section}>
+                        <Typography gutterBottom variant="h5">{userData.name} posted :</Typography>
+                        <Divider />
+                        <div className={classes.allposts}>
+                            {allposts.map(({ title, name, message, likes, _id }) => (
+                                <Card className={classes.cardpost} style={{ backgroundColor: "#ffffff", margin: "5px 5px" }} elevation={6}>
+                                    <div style={{ width: "100%", height: "100%", margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
+                                        <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{title}</Typography>
+                                        <Typography gutterBottom variant="subtitle2">{name}</Typography>
+                                        <CardContent>
+                                            <Typography variant="subtitle2" color="textSecondary" noWrap={true}  >{message}</Typography>
+                                        </CardContent>
+                                        <Typography gutterBottom style={{ fontWeight: 'bold' }} variant="subtitle1">Likes: {likes.length}</Typography>
+                                    </div>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </Paper>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { AUTH } from '../constants/actionTypes';
+import { AUTH, UPDATE_USER_PROFILE } from '../constants/actionTypes';
 import * as api from '../api/index';
 
 
@@ -27,4 +27,16 @@ export const signin = (formData, navigate, setUserId) => async (dispatch) => {
         console.log(error)
     }
 }
+
+export const updateUserProfile = (id, userData) => async (dispatch) => {
+    try {
+    //   console.log(userData)
+      const { data } = await api.updateUserProfile(id, userData);
+      console.log("hi in the auth")
+    console.log(data)
+    dispatch({ type: UPDATE_USER_PROFILE, payload: userData });
+  } catch (error) {
+    console.log(error);
+  }
+};
 

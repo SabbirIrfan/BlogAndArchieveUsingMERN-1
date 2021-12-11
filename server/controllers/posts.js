@@ -10,7 +10,6 @@ function Random() {
   return temp
 }
 
-
 export const getPosts = async (req, res) => {
     const { page } = req.query;
     
@@ -125,6 +124,20 @@ export const commentPost = async (req, res) => {
 
     res.json(updatedPost);
 };
+
+
+export const getSingleUserPosts = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        
+        const posts = await PostMessage.find({ creatorEmail: id });
+
+        res.json({ data: posts});
+    } catch (error) {    
+        res.status(404).json({ message: error.message });
+    }
+}
 
 
 export default router;
