@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import User from "../models/user.js";
-
+import express from 'express';
+import mongoose from 'mongoose';
 export const signin = async (req, res) => {
     const { email, password } = req.body;
     console.log("Inside SIGN IN");
@@ -44,16 +45,18 @@ export const signup = async (req, res) => {
 
 export const updateUserById = async (req, res) => {
     const { id } = req.params;
-    const updatedUserData = req.body;
+    const {name,email,password,profileImg,googleId,imageUrl,imageData,linkedIn,github,social,institude} = req.body;
     // const { temp } = updatedUserData;
     // console.log(temp)
+    const updatedUserData = { name, email, password, profileImg, googleId, imageUrl, imageData, linkedIn, github, social, institude };
+    console.log(updatedUserData)
     try {
         
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with this id: ${id}`);
 
     await User.findByIdAndUpdate(id, updatedUserData, { new: true });
 
-    res.json(updatedPost);
+    res.json(updatedUserData);
     } catch (error) {
         res.status(404).json({message: "Something is wrong"})
     }

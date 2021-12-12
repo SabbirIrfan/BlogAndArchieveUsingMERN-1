@@ -4,9 +4,13 @@ export default makeStyles((theme) => ({
   fab_button:{
     borderRadius: 100,
     marginBottom: '1rem',
-    
+    marginLeft: '.9rem',
+    width: '13.3rem',
     slot: 'fixed',
     padding: '16px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent : 'center',
     color : 'black',
     background: '#bcc9b9',
   },
