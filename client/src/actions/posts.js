@@ -54,8 +54,9 @@ export const commentPost = (value, id) => async (dispatch) => {
 export const createPost = (post, history) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
+    console.log(post);
     const { data } = await api.createPost(post);
-
+    console.log(data);
     dispatch({ type: CREATE, payload: data });
 
     history(`/posts/${data._id}`);

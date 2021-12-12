@@ -1,9 +1,7 @@
 
 
 import React, { useState } from 'react';
-import {
-  Container, Grid, AppBar, TextField, Button, Paper, Fab,
-} from '@material-ui/core';
+import {Container, Grid, AppBar, TextField, Button, Paper, Fab,Typography} from '@material-ui/core';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -18,11 +16,12 @@ import { Grow } from '@mui/material';
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-const Home = () => {
+const Home = ({userstate}) => {
   const classes = useStyles();
   const query = useQuery();
   const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
@@ -51,15 +50,20 @@ const Home = () => {
       searchPost();
     }
   };
-
+  if(!user?.result?.name ){
+    history("/posts");
+  }
   const create_post = () => {
 
     // dispatch({ type: actionType.CREATE });
+
+    
 
     history('/addpost');
 
 
   };
+ 
   const handleAddChip = (tag) => setTags([...tags, tag]);
 
   const handleDeleteChip = (chipToDelete) => setTags(tags.filter((tag) => tag !== chipToDelete));
@@ -74,12 +78,19 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AppBar className={classes.appBarSearch} color="inherit">
-              <Fab className={classes.fab_button} variant="extended" onClick={create_post}>
+              {
+                
+                  <div>
+                  <Fab className={classes.fab_button} variant="extended" onClick={create_post}>
+    
+                    <AddIcon />
+    
+                    Create
+                  </Fab>
+                </div>
+                
 
-                <AddIcon />
-
-                Create
-              </Fab>
+              }
               <form className={classes.form} >
                 <TextField onKeyDown={handleKeyPress} name="search" variant="outlined" label="Search by text" fullWidth value={search} onChange={(e) => setSearch(e.target.value)} />
                 <ChipInput fullWidth

@@ -32,6 +32,7 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
   }, [post]);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(postData);
     if (currentId === 0) {
       dispatch(createPost({ ...postData, name: user?.result?.name, creatorImgUrl:creatorImgUrl, creatorEmail: creatorEmail }, history));
       clear();

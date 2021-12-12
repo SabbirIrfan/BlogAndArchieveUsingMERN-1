@@ -15,18 +15,8 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 
-// import '@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css';
-// Import the main component
-// import { Viewer } from '@react-pdf-viewer/core'; // install this library
-// Plugins
-// import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'; // install this library
-// Import the styles
-// import '@react-pdf-viewer/core/lib/styles/index.css';
-// import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-// Worker
-// import { Worker } from '@react-pdf-viewer/core'; // install this library
 
- 
+
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -96,7 +86,21 @@ const Post = () => {
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  
+  function download(){
+    axios({
+      url: post.selectedFile, 
+      method: 'GET',
+      responseType: 'blob', 
+  }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'file.pdf'); 
+      document.body.appendChild(link);
+      link.click();
+  });
+
+  }
 
   return (
 
@@ -163,7 +167,11 @@ const Post = () => {
       </Paper>
 
       <Card style={{ padding: '20px', marginBottom: '3px', borderRadius: '15px' }} elevation={6}>
-        
+        <CardContent>
+          <button onClick={download}>
+              Download Image
+          </button>
+        </CardContent>
 
         <CardContent>
 
@@ -176,7 +184,7 @@ const Post = () => {
                 </div>) : <div></div>}
             </div>
 
-            <div>
+            {/* <div>
               {post.selectedFile ?
                 (<div className={classes.imageSection}>
                   <Worker >
@@ -185,9 +193,8 @@ const Post = () => {
                     </div>
                   </Worker>
                   {/* <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} /> */}
-                </div>) : <div></div>}
-            </div>
-
+                {/* </div>) : <div></div>} */}
+            {/* </div>  */}
             {post.selectedFile ?
               (<div className={classes.imageSection}>
                 <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
