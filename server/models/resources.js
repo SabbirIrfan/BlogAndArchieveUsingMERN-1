@@ -1,11 +1,13 @@
 import mongoose from 'mongoose';
 
-const resourceSchema = mongoose.Schema({
-   
-    selectedFile: { type: [String], default: [] },
+const resources = mongoose.Schema({
+    title: String,
+    creator: String,
+    name: String,
+    selectedFile: String,
     
 })
 
-var  Resources = mongoose.model('Resources', resourceSchema);
+var  Resources = mongoose.model('Resources', resources);
 
-export default Resources;
+export default Resources;  

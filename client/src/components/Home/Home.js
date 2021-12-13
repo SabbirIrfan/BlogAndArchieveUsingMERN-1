@@ -77,8 +77,11 @@ const Home = ({userstate}) => {
             <Posts setCurrentId={setCurrentId} />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
+            
             <AppBar className={classes.appBarSearch} color="inherit">
               {
+
+                
                 
                   <div>
                   <Fab className={classes.fab_button} variant="extended" onClick={create_post}>

@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 import PostMessage from '../models/postMessage.js';
 import ContributedPostMessage from '../models/contributedPostDetails.js';
+import Resources from '../models/Resources.js';
 
 const router = express.Router();
 
@@ -10,6 +11,45 @@ function Random() {
   let temp = Math.floor(Math.random() * 31);
   return temp
 }
+
+
+export const addpdf = async (req, res) => {
+    const userfile = req.body;
+    // console.log(userfile);
+    const newFile = new Resources(userfile);
+
+    try {
+        await newFile.save();
+//    console.log(newFile);
+        res.status(201).json(newFile);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+}
+export const getPdfs = async (req, res) => {
+    
+    
+    try {
+        const pdfs = await Resources.find();
+        // console.log(pdfs);
+        res.json(pdfs);
+    } catch (error) {    
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const deletePdf = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+    await Resources.findByIdAndRemove(id);
+
+    res.json({ message: "Post deleted successfully." });
+}
+
+
+
 
 export const getPosts = async (req, res) => {
     const { page } = req.query;

@@ -1,9 +1,13 @@
 import express from 'express';
 
-import { getPosts,getContributionData, getPostsBySearch,Contribute , getContributedPostsById,  commentPost, getPost, createPost, updatePost, likePost, deletePost, getSingleUserPosts} from '../controllers/posts.js';
+import {deletePdf, addpdf,getPdfs, getPosts,getContributionData, getPostsBySearch,Contribute , getContributedPostsById,  commentPost, getPost, createPost, updatePost, likePost, deletePost, getSingleUserPosts} from '../controllers/posts.js';
 
 const router = express.Router();
 import auth from "../middleware/auth.js";
+
+router.get('/pdfs', getPdfs);
+router.post('/addpdf',  addpdf );
+router.delete('/pdfs/delete/:id', deletePdf);
 
 router.get('/search', getPostsBySearch);
 router.get('/', getPosts);
