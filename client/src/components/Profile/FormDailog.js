@@ -87,7 +87,7 @@ export default function EditFormDialogs({ EditData }) {
     for (let i = 0; i < 1000000; i++){
         
     }
-    // window.location.reload();
+    window.location.reload();
     // history(`/posts/${currentId}`)
     setOpen(false);
   };

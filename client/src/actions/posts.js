@@ -6,7 +6,7 @@ export const getPost = (id) => async (dispatch) => {
     dispatch({ type: START_LOADING });
 
     const { data } = await api.fetchPost(id);
-
+  
     dispatch({ type: FETCH_POST, payload: { post: data } });
   } catch (error) {
     console.log(error);
@@ -87,12 +87,12 @@ export const updateContribute = (id, contributeddata) => async (dispatch) => {
   }
 };
 
-export const getContributionByPostId = (id) => async (dispatch) => {
+export const getContributionByPostId = (id, setContributedSinglePostData) => async (dispatch) => {
   try {
     // dispatch({ type: START_LOADING });
     const { data } = await api.fetchContributionByPostId(id);
-    console.log(data)
-
+    // console.log(data)
+    setContributedSinglePostData(data);
 
     // let allContribution = []
     // data.forEach(element => {

@@ -125,7 +125,7 @@ export const updatePost = async (req, res) => {
 export const Contribute = async (req, res) => {
 
     const { id } = req.params;
-    const { value } = req.body;
+    const value = req.body;
     const contributedPost1 = new ContributedPostMessage(value)
     await contributedPost1.save();
     // console.log("Hi in the server")

@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 const contributedPostSchema = mongoose.Schema({
-    message: String,
+    message: { type: String, default: '' },
     creator: { type: String, default: '' },
     name: String,
-    selectedFile: { type: [String], default: [] },
+    selectedFile: { type: [{}], default: [] },
     likes: { type: [String], default: [] },
     createdAt: {
         type: Date,

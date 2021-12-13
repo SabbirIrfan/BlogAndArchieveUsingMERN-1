@@ -15,8 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 // import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import ContributeDailog from './ContributeDailog';
-
-
+import { getContributionByPostId } from '../../actions/posts';
 
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -24,7 +23,7 @@ const Post = () => {
   const history = useNavigate();
   const classes = useStyles();
   const { id } = useParams();
-
+  const [ContributedSinglePostData, setContributedSinglePostData] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const settings = {
@@ -56,10 +55,11 @@ const Post = () => {
     history('/')
   };
 
-
+  // console.log(ContributedSinglePostData)
 
   useEffect(() => {
     dispatch(getPost(id));
+    dispatch(getContributionByPostId(id, setContributedSinglePostData));
   }, [id]);
 
   useEffect(() => {
@@ -215,7 +215,7 @@ const Post = () => {
       <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
         <div className={classes.card}>
           <div className={classes.section}>
-            <Typography>Wanna contribute?<ContributeDailog currentId={post._id} /></Typography>
+            <ContributeDailog currentId={post._id} setContributedSinglePostData={setContributedSinglePostData} />
             {/* <Divider style={{ margin: '20px 0' }} /> */}
           </div>
         </div>
@@ -228,15 +228,30 @@ const Post = () => {
                 <Divider style={{ margin: '20px 0' }} /></div>) : (<div></div>)}
           </div>
         </div>
-        <div className={classes.card}>
-          {/* {post.selectedFile ?
-          (<div className={classes.imageSection}>
-            <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
-          </div>) : <div></div>} */}
-          {/* <div className={classes.imageSection}> */}
-          {/* <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} /> */}
-          {/* </div> */}
-        </div>
+
+        {!!ContributedSinglePostData.length && (
+          <div className={classes.section}>
+            <Typography gutterBottom variant="h5">Some user Contributed:</Typography>
+            <Divider />
+            <div className={classes.recommendedPosts}>
+
+              {ContributedSinglePostData.map(({ creator, message, selectedFile, _id }) => (
+                <Card className={classes.card} style={{ backgroundColor: "#ffffff", margin: "5px 5px" }} elevation={6}>
+
+                  <div style={{ width: "100%", height: "100%", margin: '20px', cursor: 'pointer' }} key={_id}>
+                    <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{creator}</Typography>
+                    <CardContent>
+                      <Typography gutterBottom variant="subtitle">{message}</Typography>
+                    </CardContent>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+
+          </div>
+        )}
+
         {
           !!recommendedPosts.length && (
             <div className={classes.section}>

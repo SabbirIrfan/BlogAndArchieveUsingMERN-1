@@ -90,7 +90,7 @@ const initialContriData = {
 
 
 
-export default function ContributeDailog({currentId}) {
+export default function ContributeDailog({currentId, setContributedSinglePostData}) {
   const [open, setOpen] = React.useState(false);
   const [contributednewPost, setContributednewPost] = useState(initialContriData)
   const dispatch = useDispatch();
@@ -108,7 +108,8 @@ export default function ContributeDailog({currentId}) {
   };
   
   const handleClose = () => {
-    console.log('hii')
+    // console.log('hii')
+    console.log(contributednewPost)
     dispatch(updateContribute(currentId, { ...contributednewPost, creator: user.result.name, creatorEmail: user.result.email, creatorImgUrl: user.result.imageData }));
     for (let i = 0; i < 1000000; i++){
         
@@ -116,7 +117,7 @@ export default function ContributeDailog({currentId}) {
     clear();
     // window.location.reload();
     history(`/posts/${currentId}`)
-    dispatch(getContributionByPostId(currentId));
+    dispatch(getContributionByPostId(currentId, setContributedSinglePostData));
     setOpen(false);
     };
     
@@ -132,7 +133,7 @@ export default function ContributeDailog({currentId}) {
               <DialogTitle><Typography variant="h4">Contribute</Typography></DialogTitle>
               <DialogContent>
                   <TextField style={{ margin: '10px 10px' }} name="message" variant="outlined" label="Message" fullWidth multiline rows={6} value={contributednewPost.message} onChange={(e) => setContributednewPost({ ...contributednewPost, message: e.target.value })} />
-                  <div style={{ margin: '10px 10px' }} className={classes1.fileInput}><FileBase type="file" multiple={true} onDone={({ base64 }) => setContributednewPost({ ...contributednewPost, selectedFile: base64 })} /></div>
+                  <div style={{ margin: '10px 10px' }} className={classes1.fileInput}><FileBase type="file" multiple={true} onDone={(base64) => setContributednewPost({ ...contributednewPost, selectedFile: base64 })} /></div>
                   <Divider style={{ margin: '20px 0' }} />
               </DialogContent>
               <DialogActions>
