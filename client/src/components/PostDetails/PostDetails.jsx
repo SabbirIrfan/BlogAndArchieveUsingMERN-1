@@ -23,7 +23,7 @@ const Post = () => {
   const history = useNavigate();
   const classes = useStyles();
   const { id } = useParams();
-  const [ContributedSinglePostData, setContributedSinglePostData] = useState(null);
+  const [ContributedSinglePostData, setContributedSinglePostData] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const settings = {
@@ -88,19 +88,21 @@ const Post = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
 
   function download() {
-    axios({
-      url: post.selectedFile,
-      method: 'GET',
-      responseType: 'blob',
-    }).then((response) => {
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'file.pdf');
-      document.body.appendChild(link);
-      link.click();
-    });
+    for (let i = 0; i < post.selectedFile.length; i++) {
+      axios({
+        url: post.selectedFile[i].base64,
+        method: 'GET',
+        responseType: 'blob',
+      }).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'file.png');
+        document.body.appendChild(link);
+        link.click();
+      });
 
+    }
   }
 
   return (
@@ -169,8 +171,13 @@ const Post = () => {
 
       <Card style={{ padding: '20px', marginBottom: '3px', borderRadius: '15px' }} elevation={6}>
         <CardContent>
-          <button onClick={download}>
-            Download Image
+          <button onClick={() => download()}
+            style={{
+              color: '#334155',
+            }}
+          >
+
+            Download Images
           </button>
         </CardContent>
 
@@ -178,33 +185,26 @@ const Post = () => {
 
           <Slider {...settings}>
 
-            <div>
-              {post.selectedFile ?
-                (<div className={classes.imageSection}>
-                  <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
-                </div>) : <div></div>}
-            </div>
 
-            {/* <div>
-              {post.selectedFile ?
-                (<div className={classes.imageSection}>
-                  <Worker >
-                    <div style={{ height: '750px' }}>
-                      <Viewer fileUrl="./fb1e268d29f29a34.pdf" />
-                    </div>
-                  </Worker>
-                  {/* <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} /> */}
-            {/* </div>) : <div></div>} */}
-            {/* </div>  */}
-            {post.selectedFile ?
+            {post.selectedFile.length>0 ?
               (<div className={classes.imageSection}>
-                <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
+
+                <img className={classes.media} src={post.selectedFile[0].base64 || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
               </div>) : <div></div>}
 
 
-            {post.selectedFile ?
+            {post.selectedFile.length>1 ?
+
               (<div className={classes.imageSection}>
-                <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
+
+                <img className={classes.media} src={post.selectedFile[1].base64 || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
+              </div>) : <div></div>}
+
+
+            {post.selectedFile.length>2 ?
+              (<div className={classes.imageSection}>
+
+                <img className={classes.media} src={post.selectedFile[2].base64 || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
               </div>) : <div></div>}
 
 
@@ -215,10 +215,35 @@ const Post = () => {
       <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
         <div className={classes.card}>
           <div className={classes.section}>
+            {/* lll */}
             <ContributeDailog currentId={post._id} setContributedSinglePostData={setContributedSinglePostData} />
+
+            {!!ContributedSinglePostData.length && (
+              <div className={classes.section}>
+                <Typography gutterBottom variant="h5">Some user Contributed:</Typography>
+                <Divider />
+                <div className={classes.recommendedPosts}>
+
+                  {ContributedSinglePostData.map(({ creator, message, selectedFile, _id }) => (
+                    <Card className={classes.card} style={{ backgroundColor: "#ffffff", margin: "5px 5px" }} elevation={6}>
+
+                      <div style={{ width: "100%", height: "100%", margin: '20px', cursor: 'pointer' }} key={_id}>
+                        <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{creator}</Typography>
+                        <CardContent>
+                          <Typography gutterBottom variant="subtitle">{message}</Typography>
+                        </CardContent>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+
+
+              </div>
+            )}
             {/* <Divider style={{ margin: '20px 0' }} /> */}
           </div>
         </div>
+        {/* lll */}
         <div className={classes.card}>
           <div className={classes.section}>
             {(user?.result?.googleId || user?.result?._id) ? (
@@ -229,28 +254,7 @@ const Post = () => {
           </div>
         </div>
 
-        {!!ContributedSinglePostData.length && (
-          <div className={classes.section}>
-            <Typography gutterBottom variant="h5">Some user Contributed:</Typography>
-            <Divider />
-            <div className={classes.recommendedPosts}>
 
-              {ContributedSinglePostData.map(({ creator, message, selectedFile, _id }) => (
-                <Card className={classes.card} style={{ backgroundColor: "#ffffff", margin: "5px 5px" }} elevation={6}>
-
-                  <div style={{ width: "100%", height: "100%", margin: '20px', cursor: 'pointer' }} key={_id}>
-                    <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{creator}</Typography>
-                    <CardContent>
-                      <Typography gutterBottom variant="subtitle">{message}</Typography>
-                    </CardContent>
-                  </div>
-                </Card>
-              ))}
-            </div>
-
-
-          </div>
-        )}
 
         {
           !!recommendedPosts.length && (

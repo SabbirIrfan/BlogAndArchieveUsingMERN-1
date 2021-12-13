@@ -115,7 +115,7 @@ export default function ContributeDailog({currentId, setContributedSinglePostDat
         
     }
     clear();
-    // window.location.reload();
+    window.location.reload();
     history(`/posts/${currentId}`)
     dispatch(getContributionByPostId(currentId, setContributedSinglePostData));
     setOpen(false);
