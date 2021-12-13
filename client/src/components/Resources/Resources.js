@@ -65,6 +65,12 @@ const Resources = () => {
             {allpdfs?.length && (
 
                 <div >
+                    <Card>
+                        {(user?.result?.name ? (
+
+                            <AddResourcesdialog></AddResourcesdialog>
+                        ) : <div></div>)}
+                    </Card>
 
                     {allpdfs.map(({ title, name, creator, selectedFile, _id }) => (
 
@@ -72,12 +78,7 @@ const Resources = () => {
 
 
                         <Card style={{ backgroundColor: "#f9f1f8", width: "100%", height: "100%", borderRadius: '.1rem', margin: "2px 2px" }} elevation={6}>
-                            <Card>
-                                {(user?.result?.name ?  (
 
-                                    <AddResourcesdialog></AddResourcesdialog>
-                                ): <div></div> )}
-                            </Card>
 
                             <div style={{ width: "100%", height: "10%", margin: '10px', cursor: 'pointer' }}  >
                                 <CardContent variant="h6" style={{ width: "100%", height: "10%", marginLeft: '0rem', marginTop: '1rem', fontWeight: 'bold' }} elevation={6}>

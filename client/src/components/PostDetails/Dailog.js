@@ -93,7 +93,7 @@ export default function CustomizedDialogs({currentId}) {
 
   ///FORM WORK
 
-  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
+  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: []});
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes1 = useStyles();
@@ -111,7 +111,7 @@ export default function CustomizedDialogs({currentId}) {
   };
 
   const clear = () => {
-    setPostData({ title: '', message: '', tags: [], selectedFile: '' });
+    setPostData({ title: '', message: '', tags: [], selectedFile: [] });
   };
   
   const handleClose = () => {
@@ -158,7 +158,7 @@ export default function CustomizedDialogs({currentId}) {
           />
         </div>
         
-          <div style={{ margin: '10px 10px' }} className={classes1.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
+          <div style={{ margin: '10px 10px' }} className={classes1.fileInput}><FileBase type="file" multiple={true} onDone={( base64 ) => setPostData({ ...postData, selectedFile: base64 })} /></div>
           <Divider style={{ margin: '20px 0' }} /> 
         </DialogContent>
         <DialogActions>

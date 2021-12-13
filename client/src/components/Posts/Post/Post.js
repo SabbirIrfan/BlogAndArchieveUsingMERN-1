@@ -23,7 +23,7 @@ const Post = ({ post, setCurrentId, imgUrl }) => {
   // console.log("Creator imageUrl : "+ post.creatorImgUrl);
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  const userId = user?.result.googleId || user?.result?._id;
+  const userId =  user?.result?._id;
   const hasLikedPost = post?.likes?.find((like) => like === userId);
 
   const handleLike = async () => {
@@ -39,7 +39,7 @@ const Post = ({ post, setCurrentId, imgUrl }) => {
 
   const Likes = () => {
     if (post?.likes?.length > 0) {
-      return likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
+      return likes.find((like) => like === ( user?.result?._id))
         ? (
           <><FavoriteIcon fontSize="small" style={{color: '#415b7c' , margin: '0px 0px' , padding: '0px 0px'}} />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}</>
         ) : (
@@ -93,7 +93,7 @@ const Post = ({ post, setCurrentId, imgUrl }) => {
         <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
           <Likes />
         </Button>
-        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+        {( user?.result?._id === post?.creator) && (
           <Button size="small" style={{color: '#334155'}} onClick={() => dispatch(deletePost(post._id))}>
             <DeleteIcon fontSize="small" style={{color: '#334155'}} /> &nbsp; Delete
           </Button>

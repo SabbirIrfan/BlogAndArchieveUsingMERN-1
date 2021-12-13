@@ -104,7 +104,7 @@ export default function AddResourcesdialog() {
   
   return (
     <div>
-      <Button  style={{ backgroundColor: "#c9c1f8",width: "100%", height: "100%",borderRadius:'.1rem', margin: "1px 1px"  }} onClick={handleClickOpen} >Upload</Button>
+      <Button  style={{ backgroundColor: "#E6C5C5",width: "100%", height: "100%",borderRadius:'.1rem', margin: "1px 1px"  }} onClick={handleClickOpen} >Upload</Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle><Typography>Edit Profile</Typography></DialogTitle>
         <DialogContent>
