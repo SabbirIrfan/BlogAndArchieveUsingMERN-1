@@ -82,11 +82,12 @@ export default function EditFormDialogs({ EditData }) {
     const handleClose = () => {
         // console.log(userData._id)
         // alert({ userData })
+    console.log(userData)
     dispatch(updateUserProfile(userData._id, userData));
     for (let i = 0; i < 1000000; i++){
         
     }
-    window.location.reload();
+    // window.location.reload();
     // history(`/posts/${currentId}`)
     setOpen(false);
   };

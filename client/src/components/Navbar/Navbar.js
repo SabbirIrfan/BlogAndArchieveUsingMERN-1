@@ -7,7 +7,6 @@ import { AppBar, Typography, Toolbar, Avatar, Button, Fab } from '@material-ui/c
 import memoriesLogo from '../../images/logo.png';
 import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
-import AddIcon from '@mui/icons-material/Add';
 
 
 const Navbar = () => {
@@ -63,7 +62,7 @@ const Navbar = () => {
         {user?.result ? (
           <div className={classes.profile}>
             <Link to={`/profile/${user.result.email}`} style={{ textDecoration: 'none', color: "black" }} className={classes.brandContainer}>
-              <Avatar className={classes.purple} alt={user?.result.name} src={user.result.imageData}>{user?.result.name.charAt(0)}</Avatar>
+              <img className={classes.Circularimg} alt={user?.result.name} src={user?.result.imageData}></img>
               </Link>
               {/* <Typography className={classes.userName} variant="h5">{user?.result.name}</Typography> */}
             <Button variant="contained" className={classes.logout} onClick={logout}>Logout</Button>

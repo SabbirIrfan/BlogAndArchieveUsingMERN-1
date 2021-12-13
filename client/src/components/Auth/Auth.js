@@ -53,12 +53,12 @@ const Auth = ({setUserId}) => {
         const result = res?.profileObj;
         const token = res?.tokenId;
         console.log(result.imageUrl);
-        const formData = { firstName: result.givenName, lastName: result.familyName, email: result.email, password: '', confirmPassword: '', imageUrl: result.imageUrl, imageData: '', linkedIn: '', github: '', social: '', institude: '', googleId: result.googleId };
+        const formData = { firstName: result.givenName, lastName: result.familyName, email: result.email, password: '', confirmPassword: '', imageUrl: result.imageUrl, imageData: result.imageUrl, linkedIn: '', github: '', social: '', institude: '', googleId: result.googleId };
         // console.log(initialState)
         dispatch(signup(formData,navigate, setUserId))
         //  dispatch(signup({result},navigate, setUserId))
         try {
-            dispatch({ type: AUTH, data: { result, token } });
+            // dispatch({ type: AUTH, data: { result, token } });
             setUserId("GLogIN")
             navigate('/');
 
@@ -99,18 +99,7 @@ const Auth = ({setUserId}) => {
                         <Box pt={2}>
                             <Button type="submit" fullWidth variant="contained" className={classes.submit} style={{backgroundColor: '#9abf7a',color: '#ffffff',hover: {backgroundColor: '#5d6e7a',}}} >{isSignup ? "Sign Up" : "Sign In"}</Button>
                         </Box>
-                        {isSignup &&
-                                <Box pt={2}>
-                                    <form action="http://localhost:5000/auth/google">
-                                        <Button style={{ backgroundColor: '#ff675c', color: '#ffffff', hover: { backgroundColor: '#5d6e7a', } }}
-                                    className={classes.googleButton}
-                                    fullWidth type="submit" startIcon={<Gicon />}
-                                            variant="contained" >Sign Up with Google</Button>
-                                    </form>
-                                </Box> 
-                            }
-                        {!isSignup &&
-                            <Box pt={2}>
+                        <Box pt={2}>
                                 <GoogleLogin
                                     clientId="802372011188-c3h6alkbm8dh88imcrhjd733su4q7kvr.apps.googleusercontent.com"
                                     render={(renderProps) => (
@@ -127,7 +116,7 @@ const Auth = ({setUserId}) => {
                                     onFailure={googleFailure}
                                     cookiePolicy="single_host_origin"
                                 />
-                            </Box>}
+                        </Box>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Button onClick={switchMode} style={{color:"#334155"}}>

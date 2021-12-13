@@ -9,7 +9,7 @@ import useStyles from './styles';
 
 
 const Form = ({ currentId, setCurrentId, userstate }) => {
-  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '', creatorImgUrl: '', creatorEmail: '' });
+  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: [], creatorImgUrl: '', creatorEmail: '' });
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -22,7 +22,7 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
   // clears the post form to it's default state
   const clear = () => {
     setCurrentId(0);
-    setPostData({ title: '', message: '', tags: [], selectedFile: '' });
+    setPostData({ title: '', message: '', tags: [], selectedFile: [] });
   };
 
   //populating the form with post data to update
@@ -81,7 +81,7 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
             onDelete={(chip) => handleDeleteChip(chip)}
           />
         </div>
-        <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
+        <div className={classes.fileInput}><FileBase type="file" multiple={true} onDone={(base64) => setPostData({ ...postData, selectedFile: base64 })} /></div>
         <Button className={classes.buttonSubmit} variant="contained" size="large" type="submit" fullWidth>Submit</Button>
         <Button variant="contained" className={classes.buttonClear} size="small" onClick={clear} fullWidth>Clear</Button>
       </form>

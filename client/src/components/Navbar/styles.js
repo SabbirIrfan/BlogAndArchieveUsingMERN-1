@@ -99,5 +99,13 @@ export default makeStyles((theme) => ({
     fontSize: '50px',
     color: '#ea9b80',
     marginBottom:'-.7rem'
+  },
+  Circularimg: {
+    width: '60%',
+    height: '60%',
+    borderRadius: '50%',
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: deepPurple[500],
+    marginLeft:'3rem',
   }
 }));
