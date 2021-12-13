@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-import { AppBar, Typography, Toolbar, Avatar, Button,Fab } from '@material-ui/core';
+import { AppBar, Typography, Toolbar, Avatar, Button, Fab } from '@material-ui/core';
 
 import memoriesLogo from '../../images/logo.png';
 import * as actionType from '../../constants/actionTypes';
@@ -16,10 +16,10 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const classes = useStyles();
-  const resources = ()=>{
+  const resources = () => {
     navigate('/resources/files');
   }
-  
+
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
@@ -40,31 +40,32 @@ const Navbar = () => {
 
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]);
-  
+
   return (
     <AppBar className={classes.appBar} color="inherit">
-      <Link to="/" style={{textDecoration: 'none'}} className={classes.brandContainer}>
+      <Link to="/" style={{ textDecoration: 'none' }} className={classes.brandContainer}>
         {/* <img component={Link} to="/" src={memoriesText} alt="icon" height="45px" /> */}
         <Typography className={classes.logo}>BLEND</Typography>
         <img className={classes.image} src={memoriesLogo} alt="icon" height="40px" />
       </Link>
       <Toolbar className={classes.toolbar}>
-        
-      <div>
-          <Fab className={classes.fab_button} variant="extended" onClick={resources}>
 
-            <AddIcon />
+        <div>
+          <Button className={classes.fab_button} variant="extended" onClick={resources} elevation = {1}>
 
-          </Fab>
+            {/* <AddIcon /> */}
+            Resources
+
+          </Button>
         </div>
 
 
         {user?.result ? (
           <div className={classes.profile}>
-            <Avatar className={classes.purple} alt={user?.result.name} src={user.result.imageData}>{user?.result.name.charAt(0)}</Avatar>
-            <Link to={`/profile/${user.result.email}`} style={{textDecoration: 'none', color: "black"}} className={classes.brandContainer}>
-              <Typography className={classes.userName} variant="h5">{user?.result.name}</Typography>
-            </Link>
+            <Link to={`/profile/${user.result.email}`} style={{ textDecoration: 'none', color: "black" }} className={classes.brandContainer}>
+              <Avatar className={classes.purple} alt={user?.result.name} src={user.result.imageData}>{user?.result.name.charAt(0)}</Avatar>
+              </Link>
+              {/* <Typography className={classes.userName} variant="h5">{user?.result.name}</Typography> */}
             <Button variant="contained" className={classes.logout} onClick={logout}>Logout</Button>
           </div>
         ) : (

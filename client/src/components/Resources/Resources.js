@@ -27,7 +27,7 @@ const Resources = () => {
         const add = y + '.pdf';
         axios({
             url: x,
- 
+
             method: 'GET',
             responseType: 'blob',
         }).then((response) => {
@@ -51,7 +51,7 @@ const Resources = () => {
         download(url, title);
     }
 
-    const deletepdf = (id) =>{
+    const deletepdf = (id) => {
         dispatch(deletePDF(id));
         window.location.reload();
 
@@ -61,36 +61,44 @@ const Resources = () => {
 
         <Grid>
 
-            <Card>
-                <AddResourcesdialog></AddResourcesdialog>
-            </Card>
+
             {allpdfs?.length && (
 
                 <div >
 
                     {allpdfs.map(({ title, name, creator, selectedFile, _id }) => (
+
+
+
+
                         <Card style={{ backgroundColor: "#f9f1f8", width: "100%", height: "100%", borderRadius: '.1rem', margin: "2px 2px" }} elevation={6}>
+                            <Card>
+                                {(user?.result?.name ?  (
+
+                                    <AddResourcesdialog></AddResourcesdialog>
+                                ): <div></div> )}
+                            </Card>
 
                             <div style={{ width: "100%", height: "10%", margin: '10px', cursor: 'pointer' }}  >
-                                <CardContent variant="h6" style={{width: "100%", height: "10%", marginLeft: '0rem', marginTop: '1rem', fontWeight: 'bold' }} elevation={6}>
-                                    Title: {title} 
+                                <CardContent variant="h6" style={{ width: "100%", height: "10%", marginLeft: '0rem', marginTop: '1rem', fontWeight: 'bold' }} elevation={6}>
+                                    Title: {title}
                                     Created By: {creator}
-                                    <CardActionArea style={{marginTop: '.5rem'}}>
-                                    
-                                    <DownloadForOfflineIcon   onClick={() => Download(selectedFile, title)} styles={{
-                                        marginTop: '10rem',
-                                        marginBottom: '1rem',
-                                        marginLeft: '100rem',
-                                        color: '#334155',
+                                    <CardActionArea style={{ marginTop: '.5rem' }}>
 
-                                    }}/>
-                                    
-                                    {(user?.result?.name === creator) && (
-                                        
-                                            <DeleteIcon  style={{ color: 'black' }}  onClick={() =>deletepdf(_id)} /> 
-                                    )}
+                                        <DownloadForOfflineIcon onClick={() => Download(selectedFile, title)} styles={{
+                                            marginTop: '10rem',
+                                            marginBottom: '1rem',
+                                            marginLeft: '100rem',
+                                            color: '#334155',
+
+                                        }} />
+
+                                        {(user?.result?.name === creator) && (
+
+                                            <DeleteIcon style={{ color: 'black' }} onClick={() => deletepdf(_id)} />
+                                        )}
                                     </CardActionArea>
-                                    
+
 
                                 </CardContent>
 

@@ -3,18 +3,22 @@ import { deepPurple } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   fab_button:{
-    borderRadius: 100,
-    marginTop: '.7rem',
+    borderRadius: 10,
+    marginTop: '1rem',
     marginBottom: '1rem',
     marginLeft: '.9rem',
-    width: '1rem',
+    width: '7rem',
     slot: 'fixed',
     padding: '16px',
     display: 'flex',
     alignItems: 'center',
     justifyContent : 'center',
     color : 'black',
-    background: '#bcc9b9',
+    textDecorationColor:'yellow',
+    fontFamily:[
+      'Arial Black',
+    ],
+    background: '#fffff9',
   },
   appBar: {
     borderRadius: 15,
@@ -51,11 +55,12 @@ export default makeStyles((theme) => ({
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '300px',
+    width: '200px',
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
       marginTop: 20,
+      marginLeft:100,
       justifyContent: 'center',
     },
   },
@@ -88,9 +93,11 @@ export default makeStyles((theme) => ({
 
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+    marginLeft:'3rem',
   },
   logo: {
     fontSize: '50px',
     color: '#ea9b80',
+    marginBottom:'-.7rem'
   }
 }));
