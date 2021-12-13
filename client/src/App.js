@@ -8,6 +8,7 @@ import Auth from './components/Auth/Auth'
 import PostDetails from './components/PostDetails/PostDetails';
 import Create_post from './components/Form/Create_post';
 import MainProfile from './components/Profile/MainProfile';
+import Resources from './components/Resources/Resources';
 const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const [userstate, setuserstate] = useState(user)
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/auth" element={<Auth setUserId={setUserId}/>}/>
           <Route path="/addpost" element={<Create_post />} />
+          <Route path="/resources/:id" element={<Resources/>} />
 
 
           {/* <Route path="/auth" element={ (user ? <Navigate to='/posts'/> : <Auth setUserId={setUserId}/> )}/> */}

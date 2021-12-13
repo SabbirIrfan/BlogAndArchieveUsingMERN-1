@@ -2,6 +2,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import { deepPurple } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
+  fab_button:{
+    borderRadius: 100,
+    marginTop: '.7rem',
+    marginBottom: '1rem',
+    marginLeft: '.9rem',
+    width: '1rem',
+    slot: 'fixed',
+    padding: '16px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent : 'center',
+    color : 'black',
+    background: '#bcc9b9',
+  },
   appBar: {
     borderRadius: 15,
     margin: '10px 0',

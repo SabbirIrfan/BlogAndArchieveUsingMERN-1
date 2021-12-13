@@ -10,6 +10,11 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+
+export const fetchAllpdfs = () => API.get(`/posts/pdfs`);
+export const addnewReasources = (newPost) => API.post('/posts/addpdf', newPost);
+export const deletePdf = (id) => API.delete(`/posts/pdfs/delete/${id}`);
+
 export const getIndividulaContributionById = (id)=>API.get(`/posts/getbyId/${id}`)
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchContributionByPostId = (id) => API.get(`/posts/contributedpost/${id}`);

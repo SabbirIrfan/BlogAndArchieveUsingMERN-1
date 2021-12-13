@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
+import { AppBar, Typography, Toolbar, Avatar, Button,Fab } from '@material-ui/core';
 
 import memoriesLogo from '../../images/logo.png';
 import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
+import AddIcon from '@mui/icons-material/Add';
+
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -14,6 +16,10 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const classes = useStyles();
+  const resources = ()=>{
+    navigate('/resources/files');
+  }
+  
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
@@ -43,6 +49,16 @@ const Navbar = () => {
         <img className={classes.image} src={memoriesLogo} alt="icon" height="40px" />
       </Link>
       <Toolbar className={classes.toolbar}>
+        
+      <div>
+          <Fab className={classes.fab_button} variant="extended" onClick={resources}>
+
+            <AddIcon />
+
+          </Fab>
+        </div>
+
+
         {user?.result ? (
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user?.result.name} src={user.result.imageData}>{user?.result.name.charAt(0)}</Avatar>
