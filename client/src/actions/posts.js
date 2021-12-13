@@ -1,4 +1,4 @@
-import { START_LOADING,COMMENT,  END_LOADING, FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE,FETCH_SINGLE_USER_ALL } from '../constants/actionTypes';
+import { START_LOADING,COMMENT,  END_LOADING, FETCH_ALL,UPDATE_CONTRIBUTE, FETCH_CONTRIBUTION_BY_ID, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE,FETCH_SINGLE_USER_ALL } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 export const getPost = (id) => async (dispatch) => {
@@ -17,7 +17,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
-    console.log(data);
+    // console.log(data);
     dispatch({ type: FETCH_BY_SEARCH, payload: { data }  });
     dispatch({ type: END_LOADING });
   } catch (error) {
@@ -74,6 +74,40 @@ export const updatePost = (id, post) => async (dispatch) => {
     console.log(error);
   }
 };
+
+///
+export const updateContribute = (id, contributeddata) => async (dispatch) => {
+  try {
+    // console.log(contributeddata)
+    const { data } = await api.updateContribute(id, contributeddata);
+    // console.log(data)
+    dispatch({ type: UPDATE_CONTRIBUTE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getContributionByPostId = (id) => async (dispatch) => {
+  try {
+    // dispatch({ type: START_LOADING });
+    const { data } = await api.fetchContributionByPostId(id);
+    console.log(data)
+
+
+    // let allContribution = []
+    // data.forEach(element => {
+    //   const temp_id = element._id;
+    //   console.log(temp_id)
+    //   const userD = api.getIndividulaContributionById(temp_id);
+    //         allContribution.push(userD)
+    // });
+    // console.log(allContribution)
+    // dispatch({ type: FETCH_CONTRIBUTION_BY_ID, payload: { post: data } });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 export const likePost = (id) => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('profile'));

@@ -86,8 +86,12 @@ export default function EditFormDialogs({ EditData }) {
     for (let i = 0; i < 1000000; i++){
         
     }
-    // window.location.reload();
+    window.location.reload();
     // history(`/posts/${currentId}`)
+    setOpen(false);
+  };
+
+  const handleClosePopUp = () => {
     setOpen(false);
   };
 
@@ -101,12 +105,13 @@ export default function EditFormDialogs({ EditData }) {
             <TextField style={{ margin: '10px 10px' }} name="name" variant="outlined" label="Title" fullWidth value={userData.name} onChange={(e) => setUserData({ ...userData, name: e.target.value })} />
             <TextField style={{ margin: '10px 10px' }} name="linkedIn" variant="outlined" label="LinkedIn Profile Link" fullWidth value={userData.linkedIn} onChange={(e) => setUserData({ ...userData, linkedIn: e.target.value })} />
             <TextField style={{ margin: '10px 10px' }} name="github" variant="outlined" label="Github Link" fullWidth value={userData.github} onChange={(e) => setUserData({ ...userData, github: e.target.value })} />
-            <TextField style={{margin: '10px 10px'}} name="social" variant="outlined" label="Social Media Link" fullWidth value={userData.social} onChange={(e) => setUserData({ ...userData, social: e.target.value })} />
+            <TextField style={{ margin: '10px 10px' }} name="social" variant="outlined" label="Social Media Link" fullWidth value={userData.social} onChange={(e) => setUserData({ ...userData, social: e.target.value })} />
+            <TextField style={{margin: '10px 10px'}} name="institude" variant="outlined" label="Your current Organization" fullWidth value={userData.institude} onChange={(e) => setUserData({ ...userData, institude: e.target.value })} />
             <div style={{ margin: '10px 10px' }} className={classes1.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setUserData({ ...userData, imageData: base64 })} /></div>
             <Divider style={{ margin: '20px 0' }} /> 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClosePopUp}>Cancel</Button>
           <Button onClick={handleClose}>Save Changes</Button>
         </DialogActions>
       </Dialog>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
 import { Card, CardContent, Paper, Typography, CircularProgress, Divider, Button, Menu, MenuItem } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,8 @@ import CustomizedDialogs from './Dailog';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
-import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
+// import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
+import ContributeDailog from './ContributeDailog';
 
 
 
@@ -86,19 +87,19 @@ const Post = () => {
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
   const user = JSON.parse(localStorage.getItem('profile'));
 
-  function download(){
+  function download() {
     axios({
-      url: post.selectedFile, 
+      url: post.selectedFile,
       method: 'GET',
-      responseType: 'blob', 
-  }).then((response) => {
+      responseType: 'blob',
+    }).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'file.pdf'); 
+      link.setAttribute('download', 'file.pdf');
       document.body.appendChild(link);
       link.click();
-  });
+    });
 
   }
 
@@ -169,7 +170,7 @@ const Post = () => {
       <Card style={{ padding: '20px', marginBottom: '3px', borderRadius: '15px' }} elevation={6}>
         <CardContent>
           <button onClick={download}>
-              Download Image
+            Download Image
           </button>
         </CardContent>
 
@@ -193,7 +194,7 @@ const Post = () => {
                     </div>
                   </Worker>
                   {/* <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} /> */}
-                {/* </div>) : <div></div>} */}
+            {/* </div>) : <div></div>} */}
             {/* </div>  */}
             {post.selectedFile ?
               (<div className={classes.imageSection}>
@@ -212,35 +213,22 @@ const Post = () => {
       </Card>
 
       <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-
-
-
-
-
-
-
         <div className={classes.card}>
           <div className={classes.section}>
-            {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) ? (
+            <Typography>Wanna contribute?<ContributeDailog currentId={post._id} /></Typography>
+            {/* <Divider style={{ margin: '20px 0' }} /> */}
+          </div>
+        </div>
+        <div className={classes.card}>
+          <div className={classes.section}>
+            {(user?.result?.googleId || user?.result?._id) ? (
               <div className="Parent">
                 <Divider style={{ margin: '10px 0' }} />
                 <CommentSection post={post} />
                 <Divider style={{ margin: '20px 0' }} /></div>) : (<div></div>)}
-
           </div>
         </div>
-
-
-
         <div className={classes.card}>
-
-
-
-
-
-
-
-
           {/* {post.selectedFile ?
           (<div className={classes.imageSection}>
             <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
@@ -249,8 +237,6 @@ const Post = () => {
           {/* <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} /> */}
           {/* </div> */}
         </div>
-
-
         {
           !!recommendedPosts.length && (
             <div className={classes.section}>

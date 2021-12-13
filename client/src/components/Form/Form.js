@@ -15,7 +15,7 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
   // console.log(user)
-  const creatorImgUrl = (user.result.imageUrl ? user.result.imageUrl : user.result.profileImg)
+  const creatorImgUrl = user.result.imageData;
   const creatorEmail = user.result.email;
   // console.log(creatorImgUrl)
   const history = useNavigate();

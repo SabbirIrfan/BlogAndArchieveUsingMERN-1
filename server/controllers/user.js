@@ -5,7 +5,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 export const signin = async (req, res) => {
     const { email, password } = req.body;
-    console.log("Inside SIGN IN");
+    // console.log("Inside SIGN IN");
     try {
         const existingUser = await User.findOne({ email });
 
@@ -26,7 +26,7 @@ export const signin = async (req, res) => {
         
 export const signup = async (req, res) => {
     const { email, password, confirmPassword, firstName, lastName, imageUrl, googleId, institude, social, imageData,linkedIn,github } = req.body;
-    console.log("Inside SIGN UP");
+    // console.log("Inside SIGN UP");
     try {
         const existingUser = await User.findOne({ email });
         
@@ -49,7 +49,7 @@ export const updateUserById = async (req, res) => {
     // const { temp } = updatedUserData;
     // console.log(temp)
     const updatedUserData = { name, email, password, profileImg, googleId, imageUrl, imageData, linkedIn, github, social, institude };
-    console.log(updatedUserData)
+    // console.log(updatedUserData)
     try {
         
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with this id: ${id}`);

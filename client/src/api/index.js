@@ -10,12 +10,16 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+export const getIndividulaContributionById = (id)=>API.get(`/posts/getbyId/${id}`)
 export const fetchPost = (id) => API.get(`/posts/${id}`);
+export const fetchContributionByPostId = (id) => API.get(`/posts/contributedpost/${id}`);
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
 export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
 export const createPost = (newPost) => API.post('/posts', newPost);
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
+
+export const updateContribute = (id, updatedPost) => API.patch(`/posts/contribute/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const comment = (value, id) => API.post(`/posts/${id}/commentPost`, { value });
 

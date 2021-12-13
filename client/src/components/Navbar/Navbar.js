@@ -34,7 +34,7 @@ const Navbar = () => {
 
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]);
-
+  
   return (
     <AppBar className={classes.appBar} color="inherit">
       <Link to="/" style={{textDecoration: 'none'}} className={classes.brandContainer}>
@@ -45,8 +45,8 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>
-            <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-            <Link to="/profile/mohammadfahimshah@gmail.com" style={{textDecoration: 'none', color: "black"}} className={classes.brandContainer}>
+            <Avatar className={classes.purple} alt={user?.result.name} src={user.result.imageData}>{user?.result.name.charAt(0)}</Avatar>
+            <Link to={`/profile/${user.result.email}`} style={{textDecoration: 'none', color: "black"}} className={classes.brandContainer}>
               <Typography className={classes.userName} variant="h5">{user?.result.name}</Typography>
             </Link>
             <Button variant="contained" className={classes.logout} onClick={logout}>Logout</Button>

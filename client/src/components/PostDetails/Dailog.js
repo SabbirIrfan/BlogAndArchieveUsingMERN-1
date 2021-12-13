@@ -106,7 +106,6 @@ export default function CustomizedDialogs({currentId}) {
   }, [post]);
   
 
-  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -116,7 +115,7 @@ export default function CustomizedDialogs({currentId}) {
   };
   
   const handleClose = () => {
-    dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+    dispatch(updatePost(currentId, { ...postData, name: user?.result?.name, imageData: user?.result?.imageData }));
     for (let i = 0; i < 1000000; i++){
         
     }
@@ -125,6 +124,10 @@ export default function CustomizedDialogs({currentId}) {
     history(`/posts/${currentId}`)
     setOpen(false);
   };
+  const handleClosePopUp = () => {
+    setOpen(false);
+  };
+
 
    const handleAddChip = (tag) => {
     setPostData({ ...postData, tags: [...postData.tags, tag] });
@@ -159,7 +162,7 @@ export default function CustomizedDialogs({currentId}) {
           <Divider style={{ margin: '20px 0' }} /> 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClosePopUp}>Cancel</Button>
           <Button onClick={handleClose}>Save Changes</Button>
         </DialogActions>
       </Dialog>

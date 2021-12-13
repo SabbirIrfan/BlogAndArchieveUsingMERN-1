@@ -74,7 +74,7 @@ const MainProfile = ( ) => {
         <div>
             <Card className={classes.card} raised elevation={6}>                
                 <div className={classes.centerI}>
-                    <Avatar className={classes.sizeAvatar} alt="User Image" src={userData.imageUrl}>
+                    <Avatar className={classes.sizeAvatar} alt="User Image" src={userData.imageData}>
                     </Avatar>
                 </div>
                 <div className={classes.details}>

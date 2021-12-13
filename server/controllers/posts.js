@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import PostMessage from '../models/postMessage.js';
+import ContributedPostMessage from '../models/contributedPostDetails.js';
 
 const router = express.Router();
 
@@ -39,6 +40,8 @@ export const getPostsBySearch = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+
+
 
 export const getPost = async (req, res) => { 
     const { id } = req.params;
@@ -78,6 +81,53 @@ export const updatePost = async (req, res) => {
 
     res.json(updatedPost);
 }
+
+export const Contribute = async (req, res) => {
+
+    const { id } = req.params;
+    const { value } = req.body;
+    const contributedPost1 = new ContributedPostMessage(value)
+    await contributedPost1.save();
+    // console.log("Hi in the server")
+    const post = await PostMessage.findById(id);
+    // console.log(post)
+    post.contributedPost.push(contributedPost1);
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+    // console.log(updatePost)
+    res.json(updatedPost);
+}
+
+
+export const getContributedPostsById = async (req, res) => {
+    const { id } = req.params;
+    // console.log(id)
+    try {
+        
+        const post = await PostMessage.findById(id);
+        
+        await post.populate('contributedPost');
+        const allpost = post.contributedPost;
+        // console.log(allpost)
+        // console.log(allpost)
+        res.status(200).json(allpost);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const getContributionData = async (req, res) => { 
+    const { id } = req.params;
+    console.log(id)
+    try {
+        const post = await ContributedPostMessage.findById(id);
+        console.log(post)
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+
 
 export const deletePost = async (req, res) => {
     const { id } = req.params;
