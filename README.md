@@ -54,31 +54,15 @@ Related topic recommendation
 
 
 
-<ul>
-<li>Tour History</li>
+<>
+<li>Multiple and single File Upload and ownload</li>
 <li>Update Profile</li>
-<ul>
 <li>Change Username</li>
-<li>Change Bio</li>
+<li>Change Organization</li>
 <li>Change Profile Picture</li>
-</ul>
-</ul>
-<li>User Review</li>
-<ul>
 <li>CRUD(Create,Read,Update and Delete) Operation on Post
 </li>
 <li>Comment</li>
-</ul>
-<li>Reserve Air Ticket
-<ul>
-<li>Search Flight according to Seat Class.</li>
-<li>Search Flight according to Suitable Time.</li>
-<li>Payment Process. </li>
-<li>Provide E-ticket via PDF File. </li>
-<li>Flight Booking History based on Confirm,Pending and Cancelled.</li>
-<li>Cancel Booked Flight.</li>
-</ul>
-<li>Contact with Authority</li>
 </ul>
 
 ## Used Technologies:
@@ -103,28 +87,14 @@ git clone https://github.com/NaimulHasanFahim/BlogAndArchieveUsingMERN
 
 ## Run the Project 
 
-Install virtual environment :
+create two command prompt in vs code terminal.
 ```
-pip install virtualenv
+cd into client folder
 ```
-Create your own environment :
+cd into server folder
 ```
-virtualenv yourenvname
+run npm i && npm start in both terminal
 ```
-Activate your environemnt :
-```
-yourenvname\Scripts\activate
-```
-Now install requirements.txt :
-```
-pip install -r requirements.txt
-```
-Then run the server :
-```
-python manage.py runserver
-```
-
-
 
 # Some Snapshots:
 
