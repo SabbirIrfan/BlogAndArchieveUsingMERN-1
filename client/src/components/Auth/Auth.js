@@ -58,7 +58,7 @@ const Auth = ({setUserId}) => {
         dispatch(signup(formData,navigate, setUserId))
         //  dispatch(signup({result},navigate, setUserId))
         try {
-            // dispatch({ type: AUTH, data: { result, token } });
+            dispatch({ type: AUTH, data: { result, token } });
             setUserId("GLogIN")
             navigate('/');
 

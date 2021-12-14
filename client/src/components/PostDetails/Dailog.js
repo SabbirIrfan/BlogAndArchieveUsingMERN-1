@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { updatePost } from '../../actions/posts';
 import ChipInput from 'material-ui-chip-input';
 import useStyles from './formStyle';
-
+import RichText from './RichText';
 
 // const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 //   '& .MuiDialogContent-root': {
@@ -145,8 +145,9 @@ export default function CustomizedDialogs({currentId}) {
         <DialogTitle><Typography variant="h4">Edit Post</Typography></DialogTitle>
         <DialogContent>
         <TextField style={{margin: '10px 10px'}} name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
-        <TextField style={{margin: '10px 10px'}} name="message" variant="outlined" label="Message" fullWidth multiline rows={6} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
-         <div >
+        {/* <TextField style={{margin: '10px 10px'}} name="message" variant="outlined" label="Message" fullWidth multiline rows={6} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} /> */}
+         <RichText postData={postData}/>
+          <div >
           <ChipInput
             name="tags"
             variant="outlined"

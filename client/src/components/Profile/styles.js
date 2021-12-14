@@ -96,7 +96,7 @@ export default makeStyles((theme) => ({
   allposts: {
     display: 'flex',
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
+      flexDirection: 'row',
     },
   },
    section: {

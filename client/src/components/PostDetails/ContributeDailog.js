@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { updateContribute, getContributionByPostId } from '../../actions/posts';
 import ChipInput from 'material-ui-chip-input';
 import useStyles from './formStyle';
+import RichText from './RichText';
 
 
 const BootstrapDialogTitle = (props) => {
@@ -132,8 +133,9 @@ export default function ContributeDailog({currentId, setContributedSinglePostDat
       {(user?.result?.name?(<Typography>Wanna contribute? <Button onClick={handleClickOpen}>Contribute</Button></Typography>):(<Typography>People's Contributions</Typography>))}
           <Dialog open={open} onClose={handleClose}>
               <DialogTitle><Typography variant="h4">Contribute</Typography></DialogTitle>
-              <DialogContent>
-                  <TextField style={{ margin: '10px 10px' }} name="message" variant="outlined" label="Message" fullWidth multiline rows={6} value={contributednewPost.message} onChange={(e) => setContributednewPost({ ...contributednewPost, message: e.target.value })} />
+        <DialogContent>
+          <RichText postData={contributednewPost}/>
+                  {/* <TextField style={{ margin: '10px 10px' }} name="message" variant="outlined" label="Message" fullWidth multiline rows={6} value={contributednewPost.message} onChange={(e) => setContributednewPost({ ...contributednewPost, message: e.target.value })} /> */}
                   <div style={{ margin: '10px 10px' }} className={classes1.fileInput}><FileBase type="file" multiple={true} onDone={(base64) => setContributednewPost({ ...contributednewPost, selectedFile: base64 })} /></div>
                   <Divider style={{ margin: '20px 0' }} />
               </DialogContent>

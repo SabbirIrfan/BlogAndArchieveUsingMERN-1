@@ -10,6 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useNavigate } from 'react-router-dom'
 import CardActionArea from '@mui/material/CardActionArea';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 
 const Post = ({ post, setCurrentId, imgUrl }) => {
@@ -85,7 +86,7 @@ const Post = ({ post, setCurrentId, imgUrl }) => {
         </div>
         <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
         <CardContent>
-          <Typography variant="body2" color="textSecondary" noWrap={true} component="p">{post.message}</Typography>
+          <Typography variant="body2" color="textSecondary" noWrap={true} component="p">{ReactHtmlParser(post.message)}</Typography>
         </CardContent>
          </CardActionArea>
      

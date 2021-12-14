@@ -3,13 +3,13 @@ import { Editor } from '@tinymce/tinymce-react';
 
 class RichText extends React.Component {
   handleEditorChange = (e) => {
-      this.props.postData.message=e.target.getContent()
+      this.props.postData.message = e.target.getContent()
   }
   
   render() {
     return (
       <Editor apiKey="6s3iseprg9n1inhv4gmkhjj94azbcnlx1zqfpj2zsy87g46j"
-        initialValue=""
+            initialValue={this.props.postData.message}
         init={{
             height: 300,
             width: '100%',

@@ -19,8 +19,6 @@ import { getContributionByPostId } from '../../actions/posts';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 
-
-
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -119,7 +117,7 @@ const Post = () => {
 
         <div className={classes.card}>
           <div className={classes.section}>
-            {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) ? (
+            {(user?.result?.email === post?.creatorEmail || user?.result?._id === post?.creatorEmail) ? (
               <div >
                 <Typography variant="h3" component="h2">{post.title}
                   <Button onClick={handleClick}
@@ -232,7 +230,7 @@ const Post = () => {
                       <div style={{ width: "100%", height: "100%", margin: '20px', cursor: 'pointer' }} key={_id}>
                         <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{creator}</Typography>
                         <CardContent>
-                          <Typography gutterBottom variant="subtitle">{message}</Typography>
+                          <Typography gutterBottom variant="subtitle">{ReactHtmlParser(post.message)}</Typography>
                         </CardContent>
                       </div>
                     </Card>
@@ -273,7 +271,7 @@ const Post = () => {
                       <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{title}</Typography>
                       <Typography gutterBottom variant="subtitle2">{name}</Typography>
                       <CardContent>
-                        <Typography variant="subtitle2" color="textSecondary" noWrap={true}  >{message}</Typography>
+                        <Typography variant="subtitle2" color="textSecondary" noWrap={true}>{ReactHtmlParser(post.message)}</Typography>
                       </CardContent>
                       <Typography gutterBottom style={{ fontWeight: 'bold' }} variant="subtitle1">Likes: {likes.length}</Typography>
                       {/* <img src={selectedFile} width="200px" /> */}

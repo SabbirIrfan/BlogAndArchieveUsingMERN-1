@@ -11,6 +11,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditFormDialogs from './FormDailog';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 
 const initalUserData = {
@@ -126,7 +127,7 @@ const MainProfile = ( ) => {
                                         <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{title}</Typography>
                                         <Typography gutterBottom variant="subtitle2">{name}</Typography>
                                         <CardContent>
-                                            <Typography variant="subtitle2" color="textSecondary" noWrap={true}  >{message}</Typography>
+                                            <Typography variant="subtitle2" color="textSecondary" noWrap={true}  >{ReactHtmlParser(message)}</Typography>
                                         </CardContent>
                                         <Typography gutterBottom style={{ fontWeight: 'bold' }} variant="subtitle1">Likes: {likes.length}</Typography>
                                     </div>
