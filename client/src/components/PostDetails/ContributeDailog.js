@@ -115,9 +115,10 @@ export default function ContributeDailog({currentId, setContributedSinglePostDat
         
     }
     clear();
-    window.location.reload();
-    history(`/posts/${currentId}`)
+    // window.location.reload();
+    // history(`/posts/${currentId}`)
     dispatch(getContributionByPostId(currentId, setContributedSinglePostData));
+    window.location.reload();
     setOpen(false);
     };
     
@@ -127,8 +128,8 @@ export default function ContributeDailog({currentId, setContributedSinglePostDat
 
 
   return (
-      <div>
-          <Typography>Wanna contribute? <Button onClick={handleClickOpen}>Contribute</Button></Typography>
+    <div>
+      {(user?.result?.name?(<Typography>Wanna contribute? <Button onClick={handleClickOpen}>Contribute</Button></Typography>):(<Typography>People's Contributions</Typography>))}
           <Dialog open={open} onClose={handleClose}>
               <DialogTitle><Typography variant="h4">Contribute</Typography></DialogTitle>
               <DialogContent>

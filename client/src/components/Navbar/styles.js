@@ -13,8 +13,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent : 'center',
-    color : 'black',
-    textDecorationColor:'yellow',
+    color : '#475569',
     fontFamily:[
       'Arial Black',
     ],

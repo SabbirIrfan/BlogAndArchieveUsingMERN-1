@@ -50,7 +50,7 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar}>
 
         <div>
-          <Button className={classes.fab_button} variant="extended" onClick={resources} elevation = {1}>
+          <Button className={classes.fab_button} onClick={resources} elevation = {0}>
 
             {/* <AddIcon /> */}
             Resources
@@ -62,7 +62,7 @@ const Navbar = () => {
         {user?.result ? (
           <div className={classes.profile}>
             <Link to={`/profile/${user.result.email}`} style={{ textDecoration: 'none', color: "black" }} className={classes.brandContainer}>
-              <Avatar className={classes.Circularimg} alt={user?.result.name} src={user?.result.imageData}></Avatar>
+              <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageData}></Avatar>
               </Link>
               {/* <Typography className={classes.userName} variant="h5">{user?.result.name}</Typography> */}
             <Button variant="contained" className={classes.logout} onClick={logout}>Logout</Button>

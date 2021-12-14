@@ -50,9 +50,9 @@ const Home = ({userstate}) => {
       searchPost();
     }
   };
-  if(!user?.result?.name ){
-    history("/posts");
-  }
+  // if(!user?.result?.name ){
+  //   history("/posts");
+  // }
   const create_post = () => {
 
     // dispatch({ type: actionType.CREATE });

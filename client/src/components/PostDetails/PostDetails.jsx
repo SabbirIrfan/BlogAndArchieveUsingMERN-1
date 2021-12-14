@@ -16,6 +16,10 @@ import axios from 'axios';
 // import Viewer, { Worker } from '@phuocng/react-pdf-viewer';
 import ContributeDailog from './ContributeDailog';
 import { getContributionByPostId } from '../../actions/posts';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+
+
+
 
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -160,7 +164,7 @@ const Post = () => {
             )}
 
             <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
-            <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
+            <Typography gutterBottom variant="body1" component="p">{ReactHtmlParser(post.message)}</Typography>
             <Typography variant="h6">Created by: {post.name}</Typography>
             <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
 
@@ -168,8 +172,7 @@ const Post = () => {
         </div>
 
       </Paper>
-
-      <Card style={{ padding: '20px', marginBottom: '3px', borderRadius: '15px' }} elevation={6}>
+      {(post.selectedFile.length ? (<Card style={{ padding: '20px', marginBottom: '3px', borderRadius: '15px' }} elevation={6}>
         <CardContent>
           <button onClick={() => download()}
             style={{
@@ -180,20 +183,19 @@ const Post = () => {
             Download Images
           </button>
         </CardContent>
-
         <CardContent>
 
           <Slider {...settings}>
 
 
-            {post.selectedFile.length>0 ?
+            {post.selectedFile.length > 0 ?
               (<div className={classes.imageSection}>
 
                 <img className={classes.media} src={post.selectedFile[0].base64 || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
               </div>) : <div></div>}
 
 
-            {post.selectedFile.length>1 ?
+            {post.selectedFile.length > 1 ?
 
               (<div className={classes.imageSection}>
 
@@ -201,7 +203,7 @@ const Post = () => {
               </div>) : <div></div>}
 
 
-            {post.selectedFile.length>2 ?
+            {post.selectedFile.length > 2 ?
               (<div className={classes.imageSection}>
 
                 <img className={classes.media} src={post.selectedFile[2].base64 || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
@@ -210,7 +212,7 @@ const Post = () => {
 
           </Slider>
         </CardContent>
-      </Card>
+      </Card>) : (<div></div>))}
 
       <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
         <div className={classes.card}>
@@ -246,11 +248,12 @@ const Post = () => {
         {/* lll */}
         <div className={classes.card}>
           <div className={classes.section}>
-            {(user?.result?.googleId || user?.result?._id) ? (
-              <div className="Parent">
-                <Divider style={{ margin: '10px 0' }} />
-                <CommentSection post={post} />
-                <Divider style={{ margin: '20px 0' }} /></div>) : (<div></div>)}
+            {/* {(user?.result?.googleId || user?.result?._id) ? ( */}
+            <div className="Parent">
+              <Divider style={{ margin: '10px 0' }} />
+              <CommentSection post={post} />
+              <Divider style={{ margin: '20px 0' }} /></div>
+            {/* ) : (<div></div>)} */}
           </div>
         </div>
 

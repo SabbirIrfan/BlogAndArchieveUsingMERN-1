@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPost, updatePost } from '../../actions/posts';
 import ChipInput from 'material-ui-chip-input';
 import useStyles from './styles';
-
+import RichText from './RichText';
 
 const Form = ({ currentId, setCurrentId, userstate }) => {
   const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: [], creatorImgUrl: '', creatorEmail: '' });
@@ -68,8 +68,8 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Typography variant="h6">{currentId ? `Updating "${post.title}"` : 'Share Your Thought and Experience'}</Typography>
         <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
-        <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
-        <div>
+        {/* <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} /> */}
+        <RichText postData={postData}/>
           <ChipInput
           
             name="tags"
@@ -80,8 +80,7 @@ const Form = ({ currentId, setCurrentId, userstate }) => {
             onAdd={(chip) => handleAddChip(chip)}
             onDelete={(chip) => handleDeleteChip(chip)}
           />
-        </div>
-        <div className={classes.fileInput}><FileBase type="file" multiple={true} onDone={(base64) => setPostData({ ...postData, selectedFile: base64 })} /></div>
+        <div className={classes.fileInput} style={{margin: '5px 5px'}}><FileBase type="file" multiple={true} onDone={(base64) => setPostData({ ...postData, selectedFile: base64 })} /></div>
         <Button className={classes.buttonSubmit} variant="contained" size="large" type="submit" fullWidth>Submit</Button>
         <Button variant="contained" className={classes.buttonClear} size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
