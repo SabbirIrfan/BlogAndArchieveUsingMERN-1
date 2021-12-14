@@ -125,7 +125,6 @@ run npm i && npm start in both terminal
 <p  align="center"  >
 <img  src="SCREENSHOT/10.png"  height = "400"/> </p>
 <img  src="SCREENSHOT/11.png"  height = "400"/> </p>
-https://www.youtube.com/watch?v=zpsBOG4T3QY
 ## Authors
 - <b>[Naimul Hasan (2017331059)](https://github.com/NaimulHasanFahim)</b>
 - <b>[Sabbir Irfan (2017331089)](https://github.com/SabbirIrfan)</b>
