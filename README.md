@@ -25,7 +25,7 @@ Every year, many undergrad students do research work and make awesome projects a
 </ul>
 
 # Youtube Link of how our app works:
-Blend <b>[ [watch now](https://youtu.be/0uX4cQpkpTg) ] </b>
+Blend <b>[ [watch now](https://www.youtube.com/watch?v=zpsBOG4T3QY) ] </b>
 
 ## Features Implemented
 Update post
