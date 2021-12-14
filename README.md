@@ -91,6 +91,7 @@ create two command prompt in vs code terminal.
 ```
 cd into client folder
 ```
+```
 cd into server folder
 ```
 run npm i && npm start in both terminal
