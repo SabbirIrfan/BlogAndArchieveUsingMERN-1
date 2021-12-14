@@ -230,8 +230,9 @@ const Post = () => {
                       <div style={{ width: "100%", height: "100%", margin: '20px', cursor: 'pointer' }} key={_id}>
                         <Typography gutterBottom variant="h6" style={{ fontWeight: 'bold' }}>{creator}</Typography>
                         <CardContent>
-                          <Typography gutterBottom variant="subtitle">{ReactHtmlParser(post.message)}</Typography>
+                          <Typography gutterBottom variant="subtitle">{ReactHtmlParser(message)}</Typography>
                         </CardContent>
+
                       </div>
                     </Card>
                   ))}
