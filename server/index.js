@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -7,11 +6,6 @@ import postRoutes from './routes/posts.js'
 import userRoutes from './routes/user.js'
 
 import profileRoutes from './routes/profile.js'
-import session from 'express-session';
-import passport from 'passport';
-import passportLocalMongoose from 'passport-local-mongoose';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import findOrCreate from'mongoose-findorcreate';
 
 const app = express();
 dotenv.config();

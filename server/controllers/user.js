@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from "../models/user.js";
 import express from 'express';
 import mongoose from 'mongoose';
+
 export const signin = async (req, res) => {
     const { email, password } = req.body;
     // console.log("Inside SIGN IN");
