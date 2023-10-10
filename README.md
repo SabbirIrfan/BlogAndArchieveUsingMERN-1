@@ -1,8 +1,5 @@
 # Database Project
 ## Presented by :
-### Reg. no : 2017331059
-### Name :  Naimul Hasan
-
 ### Reg. no : 2017331089
 ### Name :  Md. Sabbir Irfan Chy
 
